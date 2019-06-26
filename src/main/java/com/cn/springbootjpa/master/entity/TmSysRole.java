@@ -25,7 +25,7 @@ public class TmSysRole extends BaseEntity {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "tm_sys_role_id", unique = true, nullable = false, precision = 11, scale = 0)
 	private Integer id;
 
