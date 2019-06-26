@@ -25,7 +25,7 @@ public class TmSysUser extends BaseEntity {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO, generator = "generator")
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "tm_sys_user_id", unique = true, nullable = false, precision = 11, scale = 0)
 	private Integer id;
 
