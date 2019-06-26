@@ -18,12 +18,12 @@ public class HelloWorldComntroller {
 	private EntityManagerFactory entityManagerFactory;
 	
 	@GetMapping(value="/index")
-	public String HelloWorld() {
+	public String helloWorld() {
 		return "Hello World";
 	}
 	
-	@GetMapping(value="/getuser")
-	public TmSysUser getuser() {
+	@GetMapping(value="/adduser")
+	public TmSysUser adduser() {
 		//1,创建EntityFactory 自动注入
 		//2.创建EntityManager
 		EntityManager manager = entityManagerFactory.createEntityManager();
@@ -32,12 +32,12 @@ public class HelloWorldComntroller {
 		transaction.begin();
 		//4.进行持久化操作
 		TmSysUser user = new TmSysUser();
-		user.setUserName("shmct");
-		user.setUserPwd(MD5.md5("1234"));
+		user.setUserName("smctv");
+		user.setUserPwd(MD5.md5("123"));
 		user.setRealName("张三");
-		user.setSex("2");
-		user.setAge(27);
-		user.setPhone("12311");
+		user.setSex("1");
+		user.setAge(21);
+		user.setPhone("12315");
 		user.setEmail("1579079951@qq.com");
 		user.setLocked(false);
 		user.setMarkStatus(true);
