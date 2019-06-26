@@ -209,6 +209,7 @@ public final class StringUtil {
 	 * @author wwn
 	 * @date 2017-11-30
 	 */
+	@SuppressWarnings("rawtypes")
 	public static String join(List list, char separator) {
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < list.size(); i++) {
