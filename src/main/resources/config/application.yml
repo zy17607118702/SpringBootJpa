@@ -1,0 +1,17 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: SpringBootJpa
+  profiles:
+    active: test
+  jpa:
+      database: MYSQL
+      show-sql: true
+      format_sql: true
+      hibernate:
+        ddl-auto: update
+        naming-strategy: org.hibernate.cfg.DefaultNamingStrategy
+        dialect: org.hibernate.dialect.MySQL5Dialect
+        current_session_context_class: org.springframework.orm.hibernate5.SpringSessionContext
+        database-platform: org.hibernate.dialect.MySQL5InnoDBDialect #设置创建表的引擎为InnoDB
