@@ -12,8 +12,15 @@
 	</parent>
 
 	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<!-- java -->
 		<java.version>1.8</java.version>
+		<sources.version>1.8</sources.version>
+		<maven.compiler.source>${java.version}</maven.compiler.source>
+		<maven.compiler.target>${java.version}</maven.compiler.target>
+		<maven.resources.overwrite>true</maven.resources.overwrite>
+		<!-- compiler-plugin version -->
+		<maven-compiler-plugin.version>3.5.1</maven-compiler-plugin.version>
 		<!-- lomlok -->
 		<lombak.version>1.18.2</lombak.version>
 		<!--hibernate -->
@@ -51,6 +58,15 @@
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+		</dependency>
+		<!-- jdbc -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jdbc</artifactId>
+		</dependency>
 		<!-- jpa -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -67,8 +83,38 @@
 			<artifactId>spring-security-core</artifactId>
 		</dependency>
 
-	</dependencies>
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+		</dependency>
 
+	</dependencies>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>javassist</groupId>
+				<artifactId>javassist</artifactId>
+			</dependency>
+			<!-- apatch commons start -->
+			<dependency>
+				<groupId>commons-beanutils</groupId>
+				<artifactId>commons-beanutils</artifactId>
+			</dependency>
+			<dependency>
+				<groupId>commons-logging</groupId>
+				<artifactId>commons-logging</artifactId>
+			</dependency>
+			<dependency>
+				<groupId>commons-lang</groupId>
+				<artifactId>commons-lang</artifactId>
+			</dependency>
+			<!-- apatch commons end -->
+		</dependencies>
+	</dependencyManagement>
 	<build>
 		<plugins>
 			<plugin>
