@@ -32,15 +32,6 @@ public interface IDao<T> {
 */
 public static String SEQ_CURRVAL_ORACLE = "CURRVAL";
 
-/**
-* 系统参数加载当前PID定义常量
-*/
-public static String SEQ_NAME_A_SYS_PARAM_CUR_PID_SEQ1 = "A_SYS_PARAM_CUR_PID_SEQ1";
-
-/**
-* 系统参数加载PID定义常量
-*/
-public static String SEQ_NAME_A_SYS_PARAM_LOAD_PID_SEQ1 = "A_SYS_PARAM_LOAD_PID_SEQ1";
 
 /**
 * 系统序列下一个值定义常量

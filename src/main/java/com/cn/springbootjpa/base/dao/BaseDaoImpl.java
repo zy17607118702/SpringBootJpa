@@ -27,7 +27,6 @@ import org.hibernate.query.NativeQuery;
 import org.hibernate.query.Query;
 import org.hibernate.type.Type;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
 
@@ -63,6 +62,17 @@ public class BaseDaoImpl<T extends BaseEntity> extends HibernateDaoSupport imple
 		}
 	}
 
+	/**
+	 * 设置Hibernate Session工厂
+	 * 
+	 * @param sessionFactory
+	 *            Hibernate Session工厂
+	 */
+	@Autowired
+	public void setHibernateSessionFactory(SessionFactory sessionFactory) {
+		super.setSessionFactory(sessionFactory);
+	}
+	
 	private void addTypeMapping(NativeQuery<?> sqlQuery, Map<String, Type> typeMapping) {
 		if (typeMapping != null) {
 			Set<String> set = typeMapping.keySet();
@@ -72,6 +82,7 @@ public class BaseDaoImpl<T extends BaseEntity> extends HibernateDaoSupport imple
 		}
 	}
 
+	
 	@SuppressWarnings({ "rawtypes" })
 	@Override
 	public int bulkUpdate(String hql) {
@@ -473,9 +484,7 @@ public class BaseDaoImpl<T extends BaseEntity> extends HibernateDaoSupport imple
 		return newSeq;
 	}
 
-	protected Session getSession() {
-		return super.currentSession();
-	}
+
 
 	/**
 	 * get the param name from a where body
@@ -1279,16 +1288,7 @@ public class BaseDaoImpl<T extends BaseEntity> extends HibernateDaoSupport imple
 		return objs;
 	}
 
-	/**
-	 * 设置Hibernate Session工厂
-	 * 
-	 * @param sessionFactory
-	 *            Hibernate Session工厂
-	 */
-	@Autowired
-	public void setHibernateSessionFactory(SessionFactory sessionFactory) {
-		super.setSessionFactory(sessionFactory);
-	}
+
 
 	/**
 	 * 设置指定Sequence的从新值开始。
