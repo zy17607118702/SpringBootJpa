@@ -1,18 +1,7 @@
 
-
-/**********************************************************************
- * FILE : IDao.java CREATE DATE : 2008-12-10 DESCRIPTION :
- * 
- * 
- * CHANGE HISTORY LOG
- * --------------------------------------------------------------------- NO.|
- * DATE | NAME | REASON | DESCRIPTION
- * --------------------------------------------------------------------- 1 |
- * 2008-12-10 | ZhangGuojie | 创建草稿版本
- * ---------------------------------------------------------------------
- ******************************************************************************/
 package com.cn.springbootjpa.base.dao;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -21,11 +10,14 @@ import java.util.Map;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.type.Type;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.cn.springbootjpa.base.entity.BaseEntity;
+
 @SuppressWarnings("rawtypes")
-public interface IDao<T> {
+public interface IDao<T extends BaseEntity,ID extends Serializable> extends JpaRepository<T,ID>{
 
 /**
 * 系统序列当前值定义常量

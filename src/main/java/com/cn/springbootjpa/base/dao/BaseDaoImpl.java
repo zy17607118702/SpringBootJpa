@@ -1,6 +1,6 @@
 package com.cn.springbootjpa.base.dao;
 
-import java.lang.reflect.ParameterizedType;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -13,11 +13,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.persistence.EntityManager;
+
 import org.hibernate.Criteria;
 import org.hibernate.Filter;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
@@ -26,8 +27,7 @@ import org.hibernate.jdbc.Work;
 import org.hibernate.query.NativeQuery;
 import org.hibernate.query.Query;
 import org.hibernate.type.Type;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
+import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.cn.springbootjpa.base.common.PageRequest;
@@ -45,7 +45,13 @@ import com.cn.springbootjpa.util.StringUtil;
  * @param <T>
  */
 @Repository("baseDao")
-public class BaseDaoImpl<T extends BaseEntity> extends HibernateDaoSupport implements IDao<T> {
+public class BaseDaoImpl<T extends BaseEntity,ID extends Serializable> extends SimpleJpaRepository<T,ID> implements IDao<T,ID> {
+
+	private final EntityManager entityManager;
+	public BaseDaoImpl(Class<T> domainClass, EntityManager em) {
+		super(domainClass, em);
+		this.entityManager=em;
+	}
 
 	private final static int COUNT_WARN = 500;
 
@@ -54,24 +60,6 @@ public class BaseDaoImpl<T extends BaseEntity> extends HibernateDaoSupport imple
 	 */
 	private Class<T> entityClass;
 
-	@SuppressWarnings("unchecked")
-	public BaseDaoImpl() {
-		if (ParameterizedType.class.isAssignableFrom(getClass().getGenericSuperclass().getClass())) {
-			entityClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass())
-					.getActualTypeArguments()[0];
-		}
-	}
-
-	/**
-	 * 设置Hibernate Session工厂
-	 * 
-	 * @param sessionFactory
-	 *            Hibernate Session工厂
-	 */
-	@Autowired
-	public void setHibernateSessionFactory(SessionFactory sessionFactory) {
-		super.setSessionFactory(sessionFactory);
-	}
 	
 	private void addTypeMapping(NativeQuery<?> sqlQuery, Map<String, Type> typeMapping) {
 		if (typeMapping != null) {
