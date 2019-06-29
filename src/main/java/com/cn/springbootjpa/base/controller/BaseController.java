@@ -17,11 +17,9 @@ import org.springframework.data.domain.ExampleMatcher.StringMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 
 import com.cn.springbootjpa.base.bo.BaseBo;
 import com.cn.springbootjpa.base.common.Result;
@@ -76,13 +74,28 @@ public abstract class BaseController<T extends BaseEntity, ID extends Serializab
 	 * @return
 	 * @throws Exception
 	 */
-	@PostMapping(value="craeate")
+	@PostMapping(value="create")
 	public Result<T> add(@Valid T model, BindingResult bindingResult) throws Exception{
 		setNewId(model);
 		validateNewModel(model);
 		T save = getBo().save(model);
 		
 		return ResultUtil.success(save);
+	}
+	
+	@PostMapping(value="update")
+	public Result<T> edit(@Valid T model, BindingResult bindingResult) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException{
+		validateModifyModel(model);
+		T save = getBo().save(model);
+		
+		return ResultUtil.success(save);
+	}
+	
+	@GetMapping(value="del")
+	public Result<Boolean> delete(@PathVariable ID guid){
+		getBo().delete(guid);
+		
+		return ResultUtil.success(true);
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -108,13 +121,7 @@ public abstract class BaseController<T extends BaseEntity, ID extends Serializab
 
 	protected abstract void setNewId(T model);
 	
-	@PutMapping
-	public Result<T> edit(@Valid T model, BindingResult bindingResult) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException{
-		validateModifyModel(model);
-		T save = getBo().save(model);
-		
-		return ResultUtil.success(save);
-	}
+
 	
 	protected void validateModifyModel(T model) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
 		long count = 0;
@@ -164,10 +171,4 @@ public abstract class BaseController<T extends BaseEntity, ID extends Serializab
 		return idFields.get(class1);
 	}
 
-	@DeleteMapping("{guid}")
-	public Result<Boolean> delete(@PathVariable ID guid){
-		getBo().delete(guid);
-		
-		return ResultUtil.success(true);
-	}
 }

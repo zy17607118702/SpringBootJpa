@@ -8,7 +8,7 @@ public class PageRes<T> {
 	private List<T> rows;
 	private int total;      // 总页数
 	private int pageIndex; // 第几页
-	private int pageSize;
+	private int pageSize; //单页条数
 	private Long records;  // 总条数
 	
 	public List<T> getRows() {
