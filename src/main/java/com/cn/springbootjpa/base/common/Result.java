@@ -1,55 +1,18 @@
 package com.cn.springbootjpa.base.common;
 
-import com.fasterxml.jackson.annotation.JsonView;
-
 import lombok.Data;
 
+/**
+ * 统一规范的异步请求返回结果结构
+ * 所有异步请求均返回该结构
+ * 当正常的时候，返回的code为ResultCodeEnum.SUCCESS,将业务数据放到data中。其他异常情况的code和msg给前端提示信息
+ * @author find
+ *
+ * @param <T>
+ */
 @Data
-public class Result {
-	public interface View {
-	}
-
-	public static Result error(int error) {
-		return new Result(error);
-	}
-
-	public static Result ok() {
-		return new Result(0);
-	}
-
-	@JsonView(View.class)
-	private Object data;
-	/**
-	 * Error错误代码，0时为成功
-	 */
-	@JsonView(View.class)
-	protected int error = 0;
-	/**
-	 * 消息，成功时为成功消息，错误时为错误消息
-	 */
-	@JsonView(View.class)
-	protected String message;
-
-	public Result() {
-		super();
-	}
-
-	public Result(Integer error) {
-		this.error = error;
-	}
-
-	public Result(Integer error, String message) {
-		this.error = error;
-		this.message = message;
-	}
-
-	public Result withData(Object data) {
-		this.data = data;
-		return this;
-	}
-
-	public Result withMessage(String message) {
-		this.setMessage(message);
-		return this;
-	}
+public class Result<T> implements IResultCode{
+	private Integer code;
+	private String msg;
+	private T data;
 }

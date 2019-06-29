@@ -19,6 +19,9 @@ import com.cn.springbootjpa.util.MD5;
 @RestController
 public class HelloWorldComntroller {
 
+	/**
+	 * 类似与Hibernate SessionFactory 
+	 */
 	@Autowired
 	private EntityManagerFactory entityManagerFactory;
 	

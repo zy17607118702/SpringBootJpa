@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
 import com.cn.springbootjpa.base.entity.BaseEntity;
@@ -55,5 +57,12 @@ public class TmSysUser extends BaseEntity {
 
 	@Column(name="mark_status",length=1,nullable=false)
 	private Boolean markStatus;
-
+	
+	/**
+	 * @Transient 不set该字段到数据库表 很多时候非数据库字段就可以用该注解
+	 * @GeneratedValue 主键自增方式	
+	 * @Id 主键列
+	 * @Column 数据库列
+	 * @Temporal 时间格式选择 date dateTime timeStamp @Temporal(TemporalType.TIMESTAMP)
+	 */
 }
