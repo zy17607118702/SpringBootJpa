@@ -44,7 +44,7 @@ public abstract class BaseController<T extends BaseEntity, ID extends Serializab
 	 * @param pageReq
 	 * @return
 	 */
-	@GetMapping
+	@GetMapping(value="list")
 	public PageRes<T> page(T condition, PageReq pageReq){
 		Pageable pageable = PageReq.getPageable(pageReq);
 		Page<T> findAll = getBo().findAll(condition, pageable);

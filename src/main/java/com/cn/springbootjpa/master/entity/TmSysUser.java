@@ -6,8 +6,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
 import com.cn.springbootjpa.base.entity.BaseEntity;
@@ -25,7 +23,19 @@ public class TmSysUser extends BaseEntity {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	
+	public static final String TAB_TMSYSUSER="tm_sys_user";
+	public static final String FIELD_ID="id";
+	public static final String FIELD_USERNAME="userName";
+	public static final String FIELD_USERPWD="userPwd";
+	public static final String FIELD_REALNAME="realName";
+	public static final String FIELD_SEX="sex";
+	public static final String FIELD_AGE="age";
+	public static final String FIELD_PHONE="phone";
+	public static final String FIELD_EMAIL="email";
+	public static final String FIELD_LOCKED="locked";
+	public static final String FIELD_MARKSTATUS="markStatus";
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "tm_sys_user_id", unique = true, nullable = false, precision = 11, scale = 0)
