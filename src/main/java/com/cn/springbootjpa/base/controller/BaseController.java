@@ -128,7 +128,7 @@ public abstract class BaseController<T extends BaseEntity, ID extends Serializab
 	 * @throws IllegalAccessException
 	 */
 	@PostMapping(value = "update")
-	public Result<T> update(@Valid T model, BindingResult bindingResult)
+	public Result<T> update(@Valid @RequestBody T model, BindingResult bindingResult)
 			throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
 		preSave(model);
 		validateModifyModel(model);
