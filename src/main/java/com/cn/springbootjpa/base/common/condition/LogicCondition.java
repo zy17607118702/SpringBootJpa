@@ -11,7 +11,11 @@ import javax.persistence.criteria.Root;
 
 import org.springframework.data.jpa.domain.Specification;
 
-import com.cn.springbootjpa.base.common.page.CompareExpression;
+/**
+ * 逻辑条件表达式 用于复杂条件时使用，如但属性多对应值的OR查询等 
+ * @author zhangyang
+ *
+ */
 
 public class LogicCondition implements ICondition {
 

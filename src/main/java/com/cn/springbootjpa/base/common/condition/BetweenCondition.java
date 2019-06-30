@@ -12,41 +12,22 @@ import org.springframework.data.jpa.domain.Specification;
 
 import com.cn.springbootjpa.base.util.DateUtil;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * 查询两个时间时间差表达式
  * @author zhangyang
  *
  * @param <T>
  */
+@Getter
+@Setter
 public class BetweenCondition<T extends Comparable<? super T>> implements ICondition {
 
 	private String f;
 	private T val1;
 	private T val2;
-	
-	public String getF() {
-		return f;
-	}
-
-	public void setF(String f) {
-		this.f = f;
-	}
-
-	public T getVal1() {
-		return val1;
-	}
-
-	public void setVal1(T val1) {
-		this.val1 = val1;
-	}
-
-	public T getVal2() {
-		return val2;
-	}
-
-	public void setVal2(T val2) {
-		this.val2 = val2;
-	}
 	
 	public BetweenCondition() {
 		

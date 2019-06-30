@@ -12,8 +12,6 @@ import javax.persistence.criteria.Root;
 
 import org.springframework.data.jpa.domain.Specification;
 
-import com.cn.springbootjpa.base.common.page.CompareExpression;
-
 public class CollectionCondition<T> implements ICondition {
 
 	private String field;

@@ -3,7 +3,7 @@
  * @author zhangyang
  *
  */
-package com.cn.springbootjpa.base.common.page;
+package com.cn.springbootjpa.base.common.condition;
 
 public enum CompareExpression {
 	/// <summary>
