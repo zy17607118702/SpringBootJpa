@@ -3,6 +3,7 @@ package com.cn.springbootjpa.base.controller;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -15,22 +16,19 @@ import javax.persistence.Id;
 import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.core.ReflectUtils;
-import org.springframework.core.convert.support.ConfigurableConversionService;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.ExampleMatcher.StringMatcher;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.util.ReflectionUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cn.springbootjpa.base.bo.BaseBo;
+import com.cn.springbootjpa.base.common.PageRequest;
 import com.cn.springbootjpa.base.common.Result;
 import com.cn.springbootjpa.base.common.ResultUtil;
 import com.cn.springbootjpa.base.common.page.PageReq;
@@ -39,14 +37,9 @@ import com.cn.springbootjpa.base.common.page.QueryCondition;
 import com.cn.springbootjpa.base.entity.BaseEntity;
 import com.cn.springbootjpa.base.exception.AppException;
 
-@RestController
 public abstract class BaseController<T extends BaseEntity, ID extends Serializable> {
 
 	protected abstract BaseBo<T, ID> getBo();
-
-	private Class<T> entityClass;
-	@Autowired
-	private ConfigurableConversionService conversionService;
 	private static final Map<Class<?>, String> idFields = new HashMap<>();
 
 	/**
@@ -56,11 +49,16 @@ public abstract class BaseController<T extends BaseEntity, ID extends Serializab
 	 * @param pageReq
 	 * @return
 	 */
-	@GetMapping(value = "list")
-	public PageRes<T> page(T condition, PageReq pageReq){
-		Pageable pageable = PageReq.getPageable(pageReq);
-		preBuildCriteria(pageReq);
-		Page<T> findAll = getBo().findAll(condition, pageable);
+	@PostMapping(value = "list")
+	public PageRes<T> list(@RequestBody PageRequest request){
+		PageReq pageReq = preBuildCriteria(request);
+		List<QueryCondition> criteria = buildCriteria(request);
+		Page<T> findAll = null;
+		try {
+			findAll = getBo().findAll(criteria, PageReq.getPageable(pageReq));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		buildContent(findAll);
 		return PageRes.toRes(findAll);
 	}
@@ -136,23 +134,55 @@ public abstract class BaseController<T extends BaseEntity, ID extends Serializab
 
 	/**
 	 * 移除查询条件为空的参数
-	 * 
+	 * 移除排序分页相关字段
 	 * @param pageReq
 	 */
-	public void preBuildCriteria(PageReq pageReq) {
-		Iterator<Entry<String, Object>> it = pageReq.entrySet().iterator();
+	public PageReq preBuildCriteria(PageRequest request) {
+		PageReq req=new PageReq();
+		Arrays.asList("sort","sord","page","rows").forEach(item->{
+			if(request.containsKey("sort")&& request.get("sort") instanceof String) {
+				req.setSort(request.get("sort").toString());
+				request.remove("sort");
+			}
+			if(request.containsKey("sord")&& request.get("sord") instanceof Boolean) {
+				req.setSord(Boolean.parseBoolean(request.get("sord").toString()));
+				request.remove("sord");
+			}
+			if(request.containsKey("page")&& request.get("page") instanceof Integer) {
+				req.setPage(Integer.parseInt(request.get("page").toString()));
+				request.remove("page");
+			}
+			if(request.containsKey("rows")&& request.get("rows") instanceof Integer) {
+				req.setRows(Integer.parseInt(request.get("rows").toString()));
+				request.remove("rows");
+			}
+		});
+		Iterator<Entry<String, Object>> it = request.entrySet().iterator();
 		if (it.hasNext()) {
 			Entry<String, Object> entry = it.next();
 			if (entry == null || entry.getValue() == null || StringUtils.isAllBlank(entry.getValue().toString())) {
 				it.remove();
 			}
 		}
+		
+		return req;
 	}
 
-	public Class<T> buildCriteria(PageReq pageReq) {
-		return null;
+	/**
+	 * 将每个查询参数拼接为condition条件
+	 * @param request
+	 * @return
+	 */
+	public List<QueryCondition> buildCriteria(PageRequest request) {
+		List<QueryCondition> list =new ArrayList<>();
+		Set<String> keySet = request.keySet();
+		QueryCondition condition=null;
+		for(String key:keySet) {
+			condition=QueryCondition.eq(key, request.get(key));
+			list.add(condition);
+		}
+		return list;
 	}
-
 	/**
 	 * 将页面传递的参数进行初步数据处理
 	 * 

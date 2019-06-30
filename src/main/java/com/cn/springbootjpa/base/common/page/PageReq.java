@@ -1,9 +1,10 @@
 package com.cn.springbootjpa.base.common.page;
 
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -16,7 +17,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class PageReq extends HashMap<String, Object> {
+public class PageReq implements Serializable {
 	/**
 	 * 
 	 */
@@ -26,32 +27,22 @@ public class PageReq extends HashMap<String, Object> {
 	private Integer page;// 页面
 	private Integer rows;// 单页条数
 
-	public void addSearch(String key, String value) {
-		this.put(key, value);
-	}
-
-	public int getCurrentIndex() {
-		return (page - 1) * rows;
-	}
-
-	public void reset() {
-		this.clear();
-	}
-
 	public Sort getPageSort() {
-		if (getSort() == null)
-			return null;
 		Direction pageDirection = getPageDirection();
 		List<String> sorts = new ArrayList<>();
-		sorts.add(getSort());
-
+		if (getSort() == null || StringUtils.isAllBlank(getSort())) {
+			sorts.add("id");
+		}else {
+			sorts.add(getSort());
+		}
 		return new Sort(pageDirection, sorts);
 	}
 
 	public Direction getPageDirection() {
 		Direction direction = Direction.DESC;
-		if (sord)
+		if (sord) {
 			direction = Direction.ASC;
+		}
 		return direction;
 	}
 
