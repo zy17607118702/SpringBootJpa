@@ -11,6 +11,7 @@ import com.cn.springbootjpa.base.bo.BaseBo;
 import com.cn.springbootjpa.base.controller.BaseController;
 import com.cn.springbootjpa.master.bo.TmSysUserBo;
 import com.cn.springbootjpa.master.entity.TmSysUser;
+import com.cn.springbootjpa.util.MD5;
 
 /**
  * @author zhangyang
@@ -29,9 +30,9 @@ public class TmSysUserApiController extends BaseController<TmSysUser, Integer> {
 	}
 
 	@Override
-	protected void setNewId(TmSysUser model) {
-		// TODO Auto-generated method stub
-		model.setId(null);
+	public void preSave(TmSysUser model) {
+		//用户加密
+		model.setUserPwd(MD5.md5(model.getUserPwd()));
 	}
 
 }

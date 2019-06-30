@@ -22,11 +22,15 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.convert.QueryByExamplePredicateBuilder;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.cn.springbootjpa.base.common.page.QueryCondition;
 import com.cn.springbootjpa.base.common.page.SpecificationUtil;
 import com.cn.springbootjpa.base.entity.BaseEntity;
 
+@Service
+@Transactional
 public abstract class BaseBoImpl<T extends BaseEntity, ID extends Serializable> implements BaseBo<T, ID> {
 
 	private static final Map<Class<?>, ExampleMatcher> modelDefaultMatcher = new HashMap<>();
