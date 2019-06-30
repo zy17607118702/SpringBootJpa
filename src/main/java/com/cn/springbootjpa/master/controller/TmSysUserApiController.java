@@ -34,5 +34,9 @@ public class TmSysUserApiController extends BaseController<TmSysUser, Integer> {
 		//用户加密
 		model.setUserPwd(MD5.md5(model.getUserPwd()));
 	}
+
+	@Override
+	public void afterGetById(TmSysUser t) {}
+	
 	
 }

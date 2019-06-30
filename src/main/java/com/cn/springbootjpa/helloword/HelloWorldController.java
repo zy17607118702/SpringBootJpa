@@ -17,7 +17,7 @@ import com.cn.springbootjpa.master.entity.TmSysUser;
 import com.cn.springbootjpa.util.MD5;
 
 @RestController
-public class HelloWorldComntroller {
+public class HelloWorldController {
 
 	/**
 	 * 类似与Hibernate SessionFactory 

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -41,6 +42,7 @@ import com.cn.springbootjpa.base.exception.AppException;
 public abstract class BaseController<T extends BaseEntity, ID extends Serializable> {
 
 	protected abstract BaseBo<T, ID> getBo();
+
 	private static final Map<Class<?>, String> idFields = new HashMap<>();
 
 	/**
@@ -51,16 +53,20 @@ public abstract class BaseController<T extends BaseEntity, ID extends Serializab
 	 * @return
 	 */
 	@PostMapping(value = "list")
-	public PageRes<T> list(@RequestBody QueryParam request){
+	public PageRes<T> list(@RequestBody QueryParam request) {
+
 		PageReq pageReq = preBuildCriteria(request);
 		List<QueryCondition> criteria = buildCriteria(request);
+		long count = getBo().count(criteria);
 		Page<T> findAll = null;
-		try {
-			findAll = getBo().findAll(criteria, PageReq.getPageable(pageReq));
-		} catch (Exception e) {
-			e.printStackTrace();
+		if (count > 0) {
+			try {
+				findAll = getBo().findAll(criteria, PageReq.getPageable(pageReq));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			afterSearch(findAll);
 		}
-		buildContent(findAll);
 		return PageRes.toRes(findAll);
 	}
 
@@ -79,7 +85,7 @@ public abstract class BaseController<T extends BaseEntity, ID extends Serializab
 		} else {
 			throw new AppException("当前编号不存在");
 		}
-		saveModel(result);
+		afterGetById(result);
 		return ResultUtil.success(result);
 	}
 
@@ -92,11 +98,22 @@ public abstract class BaseController<T extends BaseEntity, ID extends Serializab
 	 * @throws Exception
 	 */
 	@PostMapping(value = "create")
-	public Result<T> add(@Valid T model, BindingResult bindingResult) throws Exception {
+	public Result<T> create(@Valid @RequestBody T model, BindingResult bindingResult) throws Exception {
 		preSave(model);
 		validateNewModel(model);
 		T save = getBo().save(model);
 		return ResultUtil.success(save);
+	}
+
+	@PostMapping(value = "createList")
+	public Collection<T> createList(@Valid @RequestBody Collection<T> list, BindingResult bindingResult)
+			throws Exception {
+		for (T model : list) {
+			preSave(model);
+			validateNewModel(model);
+		}
+		Collection<T> save = (Collection<T>) getBo().save(list);
+		return save;
 	}
 
 	/**
@@ -111,7 +128,7 @@ public abstract class BaseController<T extends BaseEntity, ID extends Serializab
 	 * @throws IllegalAccessException
 	 */
 	@PostMapping(value = "update")
-	public Result<T> edit(@Valid T model, BindingResult bindingResult)
+	public Result<T> update(@Valid T model, BindingResult bindingResult)
 			throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
 		preSave(model);
 		validateModifyModel(model);
@@ -123,37 +140,45 @@ public abstract class BaseController<T extends BaseEntity, ID extends Serializab
 	/**
 	 * 单条数据删除
 	 * 
-	 * @param guid
+	 * @param id
 	 * @return
 	 */
-	@GetMapping(value = "del")
-	public Result<Boolean> delete(@PathVariable ID guid) {
-		getBo().delete(guid);
+	@GetMapping(value = "del/{id}")
+	public Result<Boolean> delete(@PathVariable ID id) {
+		getBo().delete(id);
 
 		return ResultUtil.success(true);
 	}
 
+	@PostMapping(value = "del")
+	public Result<Boolean> delete(@RequestBody ID[] ids) {
+		for (ID id : ids) {
+			getBo().delete(id);
+		}
+		return ResultUtil.success(true);
+	}
+
 	/**
-	 * 移除查询条件为空的参数
-	 * 移除排序分页相关字段
+	 * 移除查询条件为空的参数 移除排序分页相关字段
+	 * 
 	 * @param pageReq
 	 */
 	public PageReq preBuildCriteria(QueryParam request) {
-		PageReq req=new PageReq();
-		Arrays.asList("sort","sord","page","rows").forEach(item->{
-			if(request.containsKey("sort")&& request.get("sort") instanceof String) {
+		PageReq req = new PageReq();
+		Arrays.asList("sort", "sord", "page", "rows").forEach(item -> {
+			if (request.containsKey("sort") && request.get("sort") instanceof String) {
 				req.setSort(request.get("sort").toString());
 				request.remove("sort");
 			}
-			if(request.containsKey("sord")&& request.get("sord") instanceof Boolean) {
+			if (request.containsKey("sord") && request.get("sord") instanceof Boolean) {
 				req.setSord(Boolean.parseBoolean(request.get("sord").toString()));
 				request.remove("sord");
 			}
-			if(request.containsKey("page")&& request.get("page") instanceof Integer) {
+			if (request.containsKey("page") && request.get("page") instanceof Integer) {
 				req.setPage(Integer.parseInt(request.get("page").toString()));
 				request.remove("page");
 			}
-			if(request.containsKey("rows")&& request.get("rows") instanceof Integer) {
+			if (request.containsKey("rows") && request.get("rows") instanceof Integer) {
 				req.setRows(Integer.parseInt(request.get("rows").toString()));
 				request.remove("rows");
 			}
@@ -165,25 +190,27 @@ public abstract class BaseController<T extends BaseEntity, ID extends Serializab
 				it.remove();
 			}
 		}
-		
+
 		return req;
 	}
 
 	/**
 	 * 将每个查询参数拼接为condition条件
+	 * 
 	 * @param request
 	 * @return
 	 */
 	public List<QueryCondition> buildCriteria(QueryParam request) {
-		List<QueryCondition> list =new ArrayList<>();
+		List<QueryCondition> list = new ArrayList<>();
 		Set<String> keySet = request.keySet();
-		QueryCondition condition=null;
-		for(String key:keySet) {
-			condition=QueryCondition.eq(key, request.get(key));
+		QueryCondition condition = null;
+		for (String key : keySet) {
+			condition = QueryCondition.eq(key, request.get(key));
 			list.add(condition);
 		}
 		return list;
 	}
+
 	/**
 	 * 将页面传递的参数进行初步数据处理
 	 * 
@@ -197,7 +224,7 @@ public abstract class BaseController<T extends BaseEntity, ID extends Serializab
 	 * 
 	 * @param findAll
 	 */
-	public void buildContent(Page<T> findAll) {
+	public void afterSearch(Page<T> findAll) {
 	}
 
 	/**
@@ -205,7 +232,7 @@ public abstract class BaseController<T extends BaseEntity, ID extends Serializab
 	 * 
 	 * @param findAll
 	 */
-	public void saveModel(T t) {
+	public void afterGetById(T t) {
 	}
 
 	@SuppressWarnings("unchecked")
@@ -234,16 +261,16 @@ public abstract class BaseController<T extends BaseEntity, ID extends Serializab
 		long count = 0;
 		Class<? extends Object> class1 = model.getClass();
 		String idField = getEntityIdField(class1);
-		Field declaredFieldGuid = class1.getDeclaredField(idField);
+		Field declaredFieldid = class1.getDeclaredField(idField);
 		Map<String, String> validatesFields = validatesDuplicationFields();
 		for (String field : validatesFields.keySet()) {
 			Field declaredFieldCode = class1.getDeclaredField(field);
-			declaredFieldGuid.setAccessible(true);
+			declaredFieldid.setAccessible(true);
 			declaredFieldCode.setAccessible(true);
-			Object guid = declaredFieldGuid.get(model);
+			Object id = declaredFieldid.get(model);
 			Object code = declaredFieldCode.get(model);
 			List<QueryCondition> conditions = new ArrayList<>();
-			conditions.add(QueryCondition.notEq(idField, guid));
+			conditions.add(QueryCondition.notEq(idField, id));
 			conditions.add(QueryCondition.eq(field, code));
 			count = getBo().count(conditions);
 			if (count > 0) {
@@ -265,7 +292,7 @@ public abstract class BaseController<T extends BaseEntity, ID extends Serializab
 	private String getEntityIdField(Class<? extends Object> class1) {
 		if (!idFields.containsKey(class1)) {
 			Field[] declaredFields = class1.getDeclaredFields();
-			String idField = "guid";
+			String idField = "id";
 			for (Field field : declaredFields) {
 				Id annotation = field.getAnnotation(Id.class);
 				if (annotation != null) {
