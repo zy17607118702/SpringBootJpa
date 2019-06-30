@@ -12,6 +12,12 @@ import org.springframework.data.jpa.domain.Specification;
 
 import com.cn.springbootjpa.base.util.DateUtil;
 
+/**
+ * 查询两个时间时间差表达式
+ * @author zhangyang
+ *
+ * @param <T>
+ */
 public class BetweenCondition<T extends Comparable<? super T>> implements ICondition {
 
 	private String f;

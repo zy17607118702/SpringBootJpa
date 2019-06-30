@@ -37,6 +37,7 @@ import com.cn.springbootjpa.base.common.page.QueryCondition;
 import com.cn.springbootjpa.base.entity.BaseEntity;
 import com.cn.springbootjpa.base.exception.AppException;
 
+@RestController
 public abstract class BaseController<T extends BaseEntity, ID extends Serializable> {
 
 	protected abstract BaseBo<T, ID> getBo();

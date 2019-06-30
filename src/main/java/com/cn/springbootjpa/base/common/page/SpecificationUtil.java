@@ -52,6 +52,11 @@ public class SpecificationUtil {
 	public static <T> Specification<T> and(Specification<T>... specis){
 		int length = specis.length;
 		Specification<T> result = new Specification<T>() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public Predicate toPredicate(Root<T> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
 				Predicate[] predicates = new Predicate[length];
