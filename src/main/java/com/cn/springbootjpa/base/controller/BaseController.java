@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cn.springbootjpa.base.bo.BaseBo;
-import com.cn.springbootjpa.base.common.PageRequest;
+import com.cn.springbootjpa.base.common.QueryParam;
 import com.cn.springbootjpa.base.common.Result;
 import com.cn.springbootjpa.base.common.ResultUtil;
 import com.cn.springbootjpa.base.common.page.PageReq;
@@ -51,7 +51,7 @@ public abstract class BaseController<T extends BaseEntity, ID extends Serializab
 	 * @return
 	 */
 	@PostMapping(value = "list")
-	public PageRes<T> list(@RequestBody PageRequest request){
+	public PageRes<T> list(@RequestBody QueryParam request){
 		PageReq pageReq = preBuildCriteria(request);
 		List<QueryCondition> criteria = buildCriteria(request);
 		Page<T> findAll = null;
@@ -138,7 +138,7 @@ public abstract class BaseController<T extends BaseEntity, ID extends Serializab
 	 * 移除排序分页相关字段
 	 * @param pageReq
 	 */
-	public PageReq preBuildCriteria(PageRequest request) {
+	public PageReq preBuildCriteria(QueryParam request) {
 		PageReq req=new PageReq();
 		Arrays.asList("sort","sord","page","rows").forEach(item->{
 			if(request.containsKey("sort")&& request.get("sort") instanceof String) {
@@ -174,7 +174,7 @@ public abstract class BaseController<T extends BaseEntity, ID extends Serializab
 	 * @param request
 	 * @return
 	 */
-	public List<QueryCondition> buildCriteria(PageRequest request) {
+	public List<QueryCondition> buildCriteria(QueryParam request) {
 		List<QueryCondition> list =new ArrayList<>();
 		Set<String> keySet = request.keySet();
 		QueryCondition condition=null;

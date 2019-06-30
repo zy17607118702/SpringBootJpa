@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cn.springbootjpa.base.bo.BaseBo;
-import com.cn.springbootjpa.base.common.PageRequest;
-import com.cn.springbootjpa.base.common.page.PageReq;
 import com.cn.springbootjpa.base.controller.BaseController;
 import com.cn.springbootjpa.master.bo.TmSysUserBo;
 import com.cn.springbootjpa.master.entity.TmSysUser;
