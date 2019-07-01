@@ -17,9 +17,6 @@ import javax.persistence.Id;
 import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
-import org.springframework.data.domain.ExampleMatcher.StringMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,6 +34,7 @@ import com.cn.springbootjpa.base.common.page.PageRes;
 import com.cn.springbootjpa.base.common.page.QueryCondition;
 import com.cn.springbootjpa.base.entity.BaseEntity;
 import com.cn.springbootjpa.base.exception.AppException;
+import com.cn.springbootjpa.base.exception.ApplicationException;
 
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -51,11 +49,12 @@ public abstract class BaseController<T extends BaseEntity, ID extends Serializab
 
 	/**
 	 * 动态拼接条件查询sql集合
+	 * 
 	 * @param request
 	 * @return
 	 */
-	@ApiOperation(value="查询页面主体数据", notes="根据条件动态查询数据集")
-    @ApiImplicitParam(name = "request", value = "查询条件集合", required = true, dataType = "JSON")
+	@ApiOperation(value = "查询页面主体数据", notes = "根据条件动态查询数据集")
+	@ApiImplicitParam(name = "request", value = "查询条件集合", required = true, dataType = "JSON")
 	@PostMapping(value = "list")
 	public PageRes<T> list(@RequestBody QueryParam request) {
 
@@ -77,8 +76,8 @@ public abstract class BaseController<T extends BaseEntity, ID extends Serializab
 	 * @return
 	 */
 	@GetMapping(value = "id/{id}")
-	@ApiOperation(value="根据页面传入的id获取详情", notes="精确查找数据")
-    @ApiImplicitParam(paramType="path", name = "id", value = "编号", required = true, dataType = "Long")
+	@ApiOperation(value = "根据页面传入的id获取详情", notes = "精确查找数据")
+	@ApiImplicitParam(paramType = "path", name = "id", value = "编号", required = true, dataType = "Long")
 	public Result<T> getById(@PathVariable ID id) {
 		Optional<T> findById = getBo().getById(id);
 		T result = null;
@@ -100,10 +99,9 @@ public abstract class BaseController<T extends BaseEntity, ID extends Serializab
 	 * @throws Exception
 	 */
 	@PostMapping(value = "create")
-	@ApiOperation(value="新增方法", notes="前端编辑对象新增到数据库")
-	@ApiImplicitParams({
-		@ApiImplicitParam(name = "model", value = "新建实例", required = true, dataType = "JSON"),
-		
+	@ApiOperation(value = "新增方法", notes = "前端编辑对象新增到数据库")
+	@ApiImplicitParams({ @ApiImplicitParam(name = "model", value = "新建实例", required = true, dataType = "JSON"),
+
 	})
 	public Result<T> create(@Valid @RequestBody T model, BindingResult bindingResult) throws Exception {
 		preSave(model);
@@ -113,10 +111,8 @@ public abstract class BaseController<T extends BaseEntity, ID extends Serializab
 	}
 
 	@PostMapping(value = "createList")
-	@ApiOperation(value="批量新增方法", notes="批量新增对象到数据库")
-	@ApiImplicitParams({
-		@ApiImplicitParam(name = "list", value = "新建对象集合", required = true, dataType = "JSON")
-	})
+	@ApiOperation(value = "批量新增方法", notes = "批量新增对象到数据库")
+	@ApiImplicitParams({ @ApiImplicitParam(name = "list", value = "新建对象集合", required = true, dataType = "JSON") })
 	public Collection<T> createList(@Valid @RequestBody Collection<T> list, BindingResult bindingResult)
 			throws Exception {
 		for (T model : list) {
@@ -139,10 +135,8 @@ public abstract class BaseController<T extends BaseEntity, ID extends Serializab
 	 * @throws IllegalAccessException
 	 */
 	@PostMapping(value = "update")
-	@ApiOperation(value="单条修改方法", notes="修改单条数据")
-	@ApiImplicitParams({
-		@ApiImplicitParam( name = "model", value = "待修改对象", required = true, dataType = "JSON")
-	})
+	@ApiOperation(value = "单条修改方法", notes = "修改单条数据")
+	@ApiImplicitParams({ @ApiImplicitParam(name = "model", value = "待修改对象", required = true, dataType = "JSON") })
 	public Result<T> update(@Valid @RequestBody T model, BindingResult bindingResult)
 			throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
 		preSave(model);
@@ -159,10 +153,9 @@ public abstract class BaseController<T extends BaseEntity, ID extends Serializab
 	 * @return
 	 */
 	@GetMapping(value = "del/{id}")
-	@ApiOperation(value="单条删除方法", notes="删除单条数据")
+	@ApiOperation(value = "单条删除方法", notes = "删除单条数据")
 	@ApiImplicitParams({
-		@ApiImplicitParam(paramType="path", name = "id", value = "待删除id", required = true, dataType = "Long")
-	})
+			@ApiImplicitParam(paramType = "path", name = "id", value = "待删除id", required = true, dataType = "Long") })
 	public Result<Boolean> delete(@PathVariable ID id) {
 		getBo().delete(id);
 
@@ -170,10 +163,8 @@ public abstract class BaseController<T extends BaseEntity, ID extends Serializab
 	}
 
 	@PostMapping(value = "del")
-	@ApiOperation(value="批量删除方法", notes="批量删除数据")
-	@ApiImplicitParams({
-		@ApiImplicitParam(name = "ids", value = "需要删除的数组", required = true, dataType = "JSON")
-	})
+	@ApiOperation(value = "批量删除方法", notes = "批量删除数据")
+	@ApiImplicitParams({ @ApiImplicitParam(name = "ids", value = "需要删除的数组", required = true, dataType = "JSON") })
 	public Result<Boolean> delete(@RequestBody ID[] ids) {
 		for (ID id : ids) {
 			getBo().delete(id);
@@ -258,59 +249,66 @@ public abstract class BaseController<T extends BaseEntity, ID extends Serializab
 	public void afterGetById(T t) {
 	}
 
-	@SuppressWarnings("unchecked")
+	/**
+	 * 新增校验方法 校验不重复字段是否在数据库存在值
+	 * 
+	 * @param model
+	 * @throws Exception
+	 */
 	protected void validateNewModel(T model) throws Exception {
 		long count = 0;
-		Map<String, String> validatesFields = validatesDuplicationFields();
+		Map<String, Object> validatesFields = validateUnique(model);
+		List<QueryCondition> conditions = new ArrayList<>();
 		for (String field : validatesFields.keySet()) {
 			Field declaredField = model.getClass().getDeclaredField(field);
 			declaredField.setAccessible(true);
 			Object code = declaredField.get(model);
-
-			T example = (T) model.getClass().newInstance();
-			declaredField.set(example, code);
-			ExampleMatcher match = ExampleMatcher.matching().withStringMatcher(StringMatcher.DEFAULT);
-			Example<T> of = Example.of(example, match);
-			count = getBo().count(of);
-
-			if (count > 0) {
-				throw new AppException("数据库已存在，请修改");
-			}
+			conditions.add(QueryCondition.eq(field, code));
+		}
+		count = getBo().count(conditions);
+		if (count > 0) {
+			throw new ApplicationException("AE0005");
 		}
 	}
 
+	/**
+	 * 校验重复字段方法 id不相等 其余判断唯一性的字段相等
+	 * 
+	 * @param model
+	 * @throws NoSuchFieldException
+	 * @throws SecurityException
+	 * @throws IllegalArgumentException
+	 * @throws IllegalAccessException
+	 */
 	protected void validateModifyModel(T model)
 			throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
 		long count = 0;
 		Class<? extends Object> class1 = model.getClass();
 		String idField = getEntityIdField(class1);
 		Field declaredFieldid = class1.getDeclaredField(idField);
-		Map<String, String> validatesFields = validatesDuplicationFields();
+		declaredFieldid.setAccessible(true);
+		Map<String, Object> validatesFields = validateUnique(model);
+		List<QueryCondition> conditions = new ArrayList<>();
+		conditions.add(QueryCondition.notEq(idField, declaredFieldid.get(model)));
 		for (String field : validatesFields.keySet()) {
 			Field declaredFieldCode = class1.getDeclaredField(field);
-			declaredFieldid.setAccessible(true);
 			declaredFieldCode.setAccessible(true);
-			Object id = declaredFieldid.get(model);
 			Object code = declaredFieldCode.get(model);
-			List<QueryCondition> conditions = new ArrayList<>();
-			conditions.add(QueryCondition.notEq(idField, id));
 			conditions.add(QueryCondition.eq(field, code));
-			count = getBo().count(conditions);
-			if (count > 0) {
-				throw new AppException("数据库已存在，请修改");
-			}
+		}
+		count = getBo().count(conditions);
+		if (count > 0) {
+			throw new ApplicationException("AE0006");
 		}
 	}
 
 	/**
-	 * 如果需要验证字段重复,给出需要验证的field的字段和提示信息
+	 * 需要在实体类被重写 非id字段判断唯一性
+	 * 如果需要验证字段重复,给出需要验证的field的字段名和数值
 	 * 
 	 * @return
 	 */
-	protected Map<String, String> validatesDuplicationFields() {
-		Map<String, String> validates = new HashMap<>();
-		return validates;
-	}
+	protected abstract Map<String, Object> validateUnique(T t);
 
 	private String getEntityIdField(Class<? extends Object> class1) {
 		if (!idFields.containsKey(class1)) {
