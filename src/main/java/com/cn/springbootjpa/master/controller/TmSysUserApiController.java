@@ -13,10 +13,13 @@ import com.cn.springbootjpa.master.bo.TmSysUserBo;
 import com.cn.springbootjpa.master.entity.TmSysUser;
 import com.cn.springbootjpa.util.MD5;
 
+import io.swagger.annotations.Api;
+
 /**
  * @author zhangyang
  *
  */
+@Api(value = "用户 主数据增删改查",description = "详细描述")
 @RestController
 @RequestMapping(value="user")
 public class TmSysUserApiController extends BaseController<TmSysUser, Integer> {

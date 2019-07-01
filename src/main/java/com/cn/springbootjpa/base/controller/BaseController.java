@@ -38,6 +38,10 @@ import com.cn.springbootjpa.base.common.page.QueryCondition;
 import com.cn.springbootjpa.base.entity.BaseEntity;
 import com.cn.springbootjpa.base.exception.AppException;
 
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 public abstract class BaseController<T extends BaseEntity, ID extends Serializable> extends BaseRestController {
 
@@ -46,12 +50,12 @@ public abstract class BaseController<T extends BaseEntity, ID extends Serializab
 	private static final Map<Class<?>, String> idFields = new HashMap<>();
 
 	/**
-	 * 获取查询条件集合sql
-	 * 
-	 * @param condition
-	 * @param pageReq
+	 * 动态拼接条件查询sql集合
+	 * @param request
 	 * @return
 	 */
+	@ApiOperation(value="查询页面主体数据", notes="根据条件动态查询数据集")
+    @ApiImplicitParam(name = "request", value = "查询条件集合", required = true, dataType = "JSON")
 	@PostMapping(value = "list")
 	public PageRes<T> list(@RequestBody QueryParam request) {
 
@@ -73,6 +77,8 @@ public abstract class BaseController<T extends BaseEntity, ID extends Serializab
 	 * @return
 	 */
 	@GetMapping(value = "id/{id}")
+	@ApiOperation(value="根据页面传入的id获取详情", notes="精确查找数据")
+    @ApiImplicitParam(paramType="path", name = "id", value = "编号", required = true, dataType = "Long")
 	public Result<T> getById(@PathVariable ID id) {
 		Optional<T> findById = getBo().getById(id);
 		T result = null;
@@ -94,6 +100,11 @@ public abstract class BaseController<T extends BaseEntity, ID extends Serializab
 	 * @throws Exception
 	 */
 	@PostMapping(value = "create")
+	@ApiOperation(value="新增方法", notes="前端编辑对象新增到数据库")
+	@ApiImplicitParams({
+		@ApiImplicitParam(name = "model", value = "新建实例", required = true, dataType = "JSON"),
+		
+	})
 	public Result<T> create(@Valid @RequestBody T model, BindingResult bindingResult) throws Exception {
 		preSave(model);
 		validateNewModel(model);
@@ -102,6 +113,10 @@ public abstract class BaseController<T extends BaseEntity, ID extends Serializab
 	}
 
 	@PostMapping(value = "createList")
+	@ApiOperation(value="批量新增方法", notes="批量新增对象到数据库")
+	@ApiImplicitParams({
+		@ApiImplicitParam(name = "list", value = "新建对象集合", required = true, dataType = "JSON")
+	})
 	public Collection<T> createList(@Valid @RequestBody Collection<T> list, BindingResult bindingResult)
 			throws Exception {
 		for (T model : list) {
@@ -124,6 +139,10 @@ public abstract class BaseController<T extends BaseEntity, ID extends Serializab
 	 * @throws IllegalAccessException
 	 */
 	@PostMapping(value = "update")
+	@ApiOperation(value="单条修改方法", notes="修改单条数据")
+	@ApiImplicitParams({
+		@ApiImplicitParam( name = "model", value = "待修改对象", required = true, dataType = "JSON")
+	})
 	public Result<T> update(@Valid @RequestBody T model, BindingResult bindingResult)
 			throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
 		preSave(model);
@@ -140,6 +159,10 @@ public abstract class BaseController<T extends BaseEntity, ID extends Serializab
 	 * @return
 	 */
 	@GetMapping(value = "del/{id}")
+	@ApiOperation(value="单条删除方法", notes="删除单条数据")
+	@ApiImplicitParams({
+		@ApiImplicitParam(paramType="path", name = "id", value = "待删除id", required = true, dataType = "Long")
+	})
 	public Result<Boolean> delete(@PathVariable ID id) {
 		getBo().delete(id);
 
@@ -147,6 +170,10 @@ public abstract class BaseController<T extends BaseEntity, ID extends Serializab
 	}
 
 	@PostMapping(value = "del")
+	@ApiOperation(value="批量删除方法", notes="批量删除数据")
+	@ApiImplicitParams({
+		@ApiImplicitParam(name = "ids", value = "需要删除的数组", required = true, dataType = "JSON")
+	})
 	public Result<Boolean> delete(@RequestBody ID[] ids) {
 		for (ID id : ids) {
 			getBo().delete(id);
