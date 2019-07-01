@@ -5,6 +5,9 @@ spring:
     name: SpringBootJpa
   profiles:
     active: test
+  messages:
+    basename:
+      core/messages_zh_CN.properties,core/messages_en_EN.properties
   jpa:
       database: MYSQL
       show-sql: true

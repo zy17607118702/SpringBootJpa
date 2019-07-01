@@ -6,7 +6,6 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.cn.springbootjpa.base.common.page.QueryCondition;
-import com.cn.springbootjpa.base.util.DateUtil;
 
 public class QueryConditionTest {
 	@Test
@@ -19,5 +18,10 @@ public class QueryConditionTest {
 //		QueryCondition gt3 = QueryCondition.gt("a", DateUtil.parseDate("2015", "yyyy"));
 //		Assert.assertEquals("a>'2015-01-01 00:00:00'", gt3.toString());
 		
+	}
+	
+	@Test
+	public void jsonTest() {
+		//JSON.
 	}
 }

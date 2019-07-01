@@ -79,7 +79,7 @@ public abstract class BaseController<T extends BaseEntity, ID extends Serializab
 		if (findById.isPresent()) {
 			result = findById.get();
 		} else {
-			throw new AppException("当前编号不存在");
+			throw new AppException("AE0004");
 		}
 		afterGetById(result);
 		return ResultUtil.success(result);

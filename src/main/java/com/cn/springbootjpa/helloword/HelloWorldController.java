@@ -22,7 +22,7 @@ public class HelloWorldController {
 	/**
 	 * 类似与Hibernate SessionFactory 
 	 */
-	@Autowired
+	//@Autowired
 	private EntityManagerFactory entityManagerFactory;
 	
 	@GetMapping(value="/index")
