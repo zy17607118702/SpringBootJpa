@@ -1,7 +1,6 @@
 
 package com.cn.springbootjpa.base.bo;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,7 +21,7 @@ import com.cn.springbootjpa.base.entity.BaseEntity;
  * @param <T>
  * @param <ID>
  */
-public interface BaseBo<T extends BaseEntity, ID extends Serializable> {
+public interface BaseBo<T extends BaseEntity, ID> {
 
 	BaseDao<T, ID> getDao();
 

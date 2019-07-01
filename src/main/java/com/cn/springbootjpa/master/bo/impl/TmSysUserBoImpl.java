@@ -5,6 +5,7 @@ package com.cn.springbootjpa.master.bo.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.cn.springbootjpa.base.bo.BaseBoImpl;
 import com.cn.springbootjpa.base.dao.BaseDao;
@@ -17,6 +18,7 @@ import com.cn.springbootjpa.master.entity.TmSysUser;
  *
  */
 @Service
+@Transactional
 public class TmSysUserBoImpl extends BaseBoImpl<TmSysUser, Integer> implements TmSysUserBo {
 	@Autowired
 	private TmSysUserDao dao;

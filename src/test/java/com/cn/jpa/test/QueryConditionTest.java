@@ -1,4 +1,4 @@
-package com.find.util.web.page;
+package com.cn.jpa.test;
 
 import java.text.ParseException;
 
@@ -21,7 +21,8 @@ public class QueryConditionTest {
 	}
 	
 	@Test
-	public void jsonTest() {
-		//JSON.
+	public void IntegerTest() {
+		Integer[] test= new Integer[] {1,3};
+		System.out.println(test);
 	}
 }

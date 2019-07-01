@@ -1,6 +1,5 @@
 package com.cn.springbootjpa.base.controller;
 
-import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -39,9 +38,11 @@ import com.cn.springbootjpa.base.exception.ApplicationException;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Example;
+import io.swagger.annotations.ExampleProperty;
 
 @RestController
-public abstract class BaseController<T extends BaseEntity, ID extends Serializable> extends BaseRestController {
+public abstract class BaseController<T extends BaseEntity, ID> extends BaseRestController {
 
 	protected abstract BaseBo<T, ID> getBo();
 
@@ -100,9 +101,7 @@ public abstract class BaseController<T extends BaseEntity, ID extends Serializab
 	 */
 	@PostMapping(value = "create")
 	@ApiOperation(value = "新增方法", notes = "前端编辑对象新增到数据库")
-	@ApiImplicitParams({ @ApiImplicitParam(name = "model", value = "新建实例", required = true, dataType = "JSON"),
-
-	})
+	@ApiImplicitParam(name = "model", value = "新建实例", required = true, dataType = "JSON")
 	public Result<T> create(@Valid @RequestBody T model, BindingResult bindingResult) throws Exception {
 		preSave(model);
 		validateNewModel(model);
@@ -112,7 +111,7 @@ public abstract class BaseController<T extends BaseEntity, ID extends Serializab
 
 	@PostMapping(value = "createList")
 	@ApiOperation(value = "批量新增方法", notes = "批量新增对象到数据库")
-	@ApiImplicitParams({ @ApiImplicitParam(name = "list", value = "新建对象集合", required = true, dataType = "JSON") })
+	@ApiImplicitParam(name = "list", value = "新建对象集合", required = true, dataType = "JSON")
 	public Collection<T> createList(@Valid @RequestBody Collection<T> list, BindingResult bindingResult)
 			throws Exception {
 		for (T model : list) {
@@ -136,7 +135,7 @@ public abstract class BaseController<T extends BaseEntity, ID extends Serializab
 	 */
 	@PostMapping(value = "update")
 	@ApiOperation(value = "单条修改方法", notes = "修改单条数据")
-	@ApiImplicitParams({ @ApiImplicitParam(name = "model", value = "待修改对象", required = true, dataType = "JSON") })
+	@ApiImplicitParam(name = "model", value = "待修改对象", required = true, dataType = "JSON") 
 	public Result<T> update(@Valid @RequestBody T model, BindingResult bindingResult)
 			throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
 		preSave(model);
@@ -154,18 +153,18 @@ public abstract class BaseController<T extends BaseEntity, ID extends Serializab
 	 */
 	@GetMapping(value = "del/{id}")
 	@ApiOperation(value = "单条删除方法", notes = "删除单条数据")
-	@ApiImplicitParams({
-			@ApiImplicitParam(paramType = "path", name = "id", value = "待删除id", required = true, dataType = "Long") })
+	@ApiImplicitParam(paramType = "path", name = "id", value = "待删除id", required = true, dataType = "Integer")
 	public Result<Boolean> delete(@PathVariable ID id) {
 		getBo().delete(id);
 
 		return ResultUtil.success(true);
 	}
 
-	@PostMapping(value = "del")
+	@PostMapping(value="del")
 	@ApiOperation(value = "批量删除方法", notes = "批量删除数据")
-	@ApiImplicitParams({ @ApiImplicitParam(name = "ids", value = "需要删除的数组", required = true, dataType = "JSON") })
-	public Result<Boolean> delete(@RequestBody ID[] ids) {
+	@ApiImplicitParam(name = "map", value = "需要删除的数组", required = true, dataType = "JSON")
+	public Result<Boolean> delete( @RequestBody Map<String,ID[]> map) {
+		ID[] ids = map.get("ids");
 		for (ID id : ids) {
 			getBo().delete(id);
 		}

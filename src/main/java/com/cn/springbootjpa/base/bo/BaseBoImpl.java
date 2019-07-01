@@ -1,7 +1,6 @@
 
 package com.cn.springbootjpa.base.bo;
 
-import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.List;
@@ -31,7 +30,7 @@ import com.cn.springbootjpa.base.entity.BaseEntity;
 
 @Service
 @Transactional
-public abstract class BaseBoImpl<T extends BaseEntity, ID extends Serializable> implements BaseBo<T, ID> {
+public abstract class BaseBoImpl<T extends BaseEntity, ID> implements BaseBo<T, ID> {
 
 	private static final Map<Class<?>, ExampleMatcher> modelDefaultMatcher = new HashMap<>();
 
