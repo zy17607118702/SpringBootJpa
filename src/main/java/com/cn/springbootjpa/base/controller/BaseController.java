@@ -36,10 +36,7 @@ import com.cn.springbootjpa.base.exception.AppException;
 import com.cn.springbootjpa.base.exception.ApplicationException;
 
 import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.Example;
-import io.swagger.annotations.ExampleProperty;
 
 @RestController
 public abstract class BaseController<T extends BaseEntity, ID> extends BaseRestController {
@@ -164,10 +161,18 @@ public abstract class BaseController<T extends BaseEntity, ID> extends BaseRestC
 	@ApiOperation(value = "批量删除方法", notes = "批量删除数据")
 	@ApiImplicitParam(name = "map", value = "需要删除的数组", required = true, dataType = "JSON")
 	public Result<Boolean> delete( @RequestBody Map<String,ID[]> map) {
+		//1.获取需要删除的集合
 		ID[] ids = map.get("ids");
-		for (ID id : ids) {
-			getBo().delete(id);
+		List<QueryCondition> condition=new ArrayList<>();
+		condition.add(QueryCondition.in("id", Arrays.asList(ids)));
+		//查询这些集合是否都在数据库中
+		long size = getBo().count(condition);
+		if((int)size!=ids.length) {
+			throw new ApplicationException("AE0007");
 		}
+		//删除对应数据
+		List<T> findAll = getBo().findAll(condition);
+		getBo().deleteInBatch(findAll);
 		return ResultUtil.success(true);
 	}
 

@@ -6,7 +6,8 @@ spring:
   profiles:
     active: test
   messages:
-    basename: core.messages
+    basename:
+      core/messages.properties,core/messages_zh_CN.properties
   jpa:
       database: MYSQL
       show-sql: true
