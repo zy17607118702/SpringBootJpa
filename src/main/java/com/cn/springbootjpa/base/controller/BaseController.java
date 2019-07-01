@@ -39,7 +39,7 @@ import com.cn.springbootjpa.base.entity.BaseEntity;
 import com.cn.springbootjpa.base.exception.AppException;
 
 @RestController
-public abstract class BaseController<T extends BaseEntity, ID extends Serializable> {
+public abstract class BaseController<T extends BaseEntity, ID extends Serializable> extends BaseRestController {
 
 	protected abstract BaseBo<T, ID> getBo();
 
@@ -60,11 +60,7 @@ public abstract class BaseController<T extends BaseEntity, ID extends Serializab
 		long count = getBo().count(criteria);
 		Page<T> findAll = null;
 		if (count > 0) {
-			try {
-				findAll = getBo().findAll(criteria, PageReq.getPageable(pageReq));
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			findAll = getBo().findAll(criteria, PageReq.getPageable(pageReq));
 			afterSearch(findAll);
 		}
 		return PageRes.toRes(findAll);
