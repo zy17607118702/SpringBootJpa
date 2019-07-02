@@ -31,6 +31,12 @@
 		<mysql-connector-java.version>8.0.13</mysql-connector-java.version>
 		<!-- swagger2 -->
 		<swagger2.version>2.6.1</swagger2.version>
+		<!-- jxls -->
+		<jxls.version>2.4.2</jxls.version>
+		<!-- jxls poi -->
+		<jxls-poi.version>1.0.15</jxls-poi.version>
+		<!-- poi -->
+		<poi.version>3.17</poi.version>
 	</properties>
 
 	<dependencies>
@@ -111,10 +117,10 @@
 			<groupId>commons-beanutils</groupId>
 			<artifactId>commons-beanutils</artifactId>
 		</dependency>
-			<dependency>
-				<groupId>commons-codec</groupId>
-				<artifactId>commons-codec</artifactId>
-			</dependency>
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+		</dependency>
 		<!--apache commons end -->
 		<!-- fastjson -->
 		<dependency>
@@ -129,6 +135,24 @@
 		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger-ui</artifactId>
+		</dependency>
+		<!-- poi -->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+		</dependency>
+		<!-- jxls -->
+		<dependency>
+			<groupId>org.jxls</groupId>
+			<artifactId>jxls</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.jxls</groupId>
+			<artifactId>jxls-poi</artifactId>
 		</dependency>
 	</dependencies>
 	<!-- jar版本控制 -->
@@ -219,12 +243,34 @@
 				<artifactId>springfox-swagger-ui</artifactId>
 				<version>${swagger2.version}</version>
 			</dependency>
+			<!-- fasejson -->
 			<dependency>
 				<groupId>com.alibaba</groupId>
 				<artifactId>fastjson</artifactId>
 				<version>1.2.56</version>
 			</dependency>
-
+			<!-- jxls -->
+			<dependency>
+				<groupId>org.jxls</groupId>
+				<artifactId>jxls</artifactId>
+				<version>${jxls.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.jxls</groupId>
+				<artifactId>jxls-poi</artifactId>
+				<version>${jxls-poi.version}</version>
+			</dependency>
+			<!-- poi -->
+			<dependency>
+				<groupId>org.apache.poi</groupId>
+				<artifactId>poi</artifactId>
+				<version>${poi.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.poi</groupId>
+				<artifactId>poi-ooxml</artifactId>
+				<version>${poi.version}</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 	<build>
@@ -232,14 +278,9 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<dependencies>
-					<!-- 热部署 -->
-					<dependency>
-						<groupId>org.springframework</groupId>
-						<artifactId>springloaded</artifactId>
-						<version>1.2.6.RELEASE</version>
-					</dependency>
-				</dependencies>
+				<!-- <dependencies> 热部署 暂时取消 大项目不适用 <dependency> <groupId>org.springframework</groupId> 
+					<artifactId>springloaded</artifactId> <version>1.2.6.RELEASE</version> </dependency> 
+					</dependencies> -->
 			</plugin>
 		</plugins>
 	</build>

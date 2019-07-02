@@ -4,7 +4,7 @@ import java.util.Date;
 
 import org.springframework.data.jpa.domain.Specification;
 
-import com.cn.springbootjpa.base.util.DateUtil;
+import com.cn.springbootjpa.util.DateUtil;
 
 
 public interface ICondition {

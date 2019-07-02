@@ -1,5 +1,5 @@
 
-package com.cn.springbootjpa.base.util;
+package com.cn.springbootjpa.util;
 
 
 /**

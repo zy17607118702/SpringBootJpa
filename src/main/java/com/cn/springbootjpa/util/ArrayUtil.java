@@ -1,4 +1,4 @@
-package com.cn.springbootjpa.base.util;
+package com.cn.springbootjpa.util;
 
 import java.util.HashSet;
 import java.util.Set;

@@ -10,7 +10,7 @@ import javax.persistence.criteria.Root;
 
 import org.springframework.data.jpa.domain.Specification;
 
-import com.cn.springbootjpa.base.util.DateUtil;
+import com.cn.springbootjpa.util.DateUtil;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -52,6 +52,7 @@ public class BetweenCondition<T extends Comparable<? super T>> implements ICondi
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Specification<T> c2s() {
 		Specification<T> result = new Specification<T>() {
