@@ -121,6 +121,10 @@
 			<groupId>commons-codec</groupId>
 			<artifactId>commons-codec</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+		</dependency>
 		<!--apache commons end -->
 		<!-- fastjson -->
 		<dependency>
@@ -153,6 +157,20 @@
 		<dependency>
 			<groupId>org.jxls</groupId>
 			<artifactId>jxls-poi</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.jxls</groupId>
+			<artifactId>jxls-reader</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.apache.poi</groupId>
+					<artifactId>poi-ooxml</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.poi</groupId>
+					<artifactId>poi</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 	</dependencies>
 	<!-- jar版本控制 -->
@@ -231,6 +249,11 @@
 				<artifactId>commons-math3</artifactId>
 				<version>3.6.1</version>
 			</dependency>
+			<dependency>
+				<groupId>commons-io</groupId>
+				<artifactId>commons-io</artifactId>
+				<version>2.6</version>
+			</dependency>
 			<!-- apache commons end -->
 			<!--swagger2 -->
 			<dependency>
@@ -259,6 +282,11 @@
 				<groupId>org.jxls</groupId>
 				<artifactId>jxls-poi</artifactId>
 				<version>${jxls-poi.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.jxls</groupId>
+				<artifactId>jxls-reader</artifactId>
+				<version>2.0.3</version>
 			</dependency>
 			<!-- poi -->
 			<dependency>

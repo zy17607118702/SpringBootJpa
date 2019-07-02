@@ -20,9 +20,11 @@ entity.setUpdateTime(date);
 }
 
 @PreUpdate
-public void preUpdae(BaseEntity entity) {
+public void preUpdate(BaseEntity entity) {
 String username = LoginUserUtil.getLoginUser();
 Date date = DateUtils.getCurrentDate();
+entity.setCreateBy(entity.getCreateBy());
+entity.setCreateTime(entity.getCreateTime());
 entity.setUpdateBy(username);
 entity.setUpdateTime(date);
 }
