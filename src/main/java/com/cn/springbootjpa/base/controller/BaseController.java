@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.cn.springbootjpa.base.bo.BaseBo;
 import com.cn.springbootjpa.base.common.QueryParam;
@@ -34,6 +35,7 @@ import com.cn.springbootjpa.base.common.page.QueryCondition;
 import com.cn.springbootjpa.base.entity.BaseEntity;
 import com.cn.springbootjpa.base.exception.AppException;
 import com.cn.springbootjpa.base.exception.ApplicationException;
+import com.cn.springbootjpa.util.excel.FileView;
 
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -176,6 +178,23 @@ public abstract class BaseController<T extends BaseEntity, ID> extends BaseRestC
 		return ResultUtil.success(true);
 	}
 
+	/**
+	 * 1.前端不同页面传入不同的name就能下载模板
+	 * 2。后台模板位置规律/templates/{name}/{name}.xlsx 必须按照此规律布局模板
+	 * @PathVariable 获取url上的请求参数
+	 * @param name
+	 * @return
+	 */
+	@GetMapping(value = { "/downloadXls" })
+	@ApiOperation(value = "下载模板", notes = "下载模板方法")
+	@ApiImplicitParam(name = "request", value = "查询条件集合", required = true, dataType = "JSON")
+	public ModelAndView downloadXls(@PathVariable("name") String name) {
+		StringBuilder path = new StringBuilder("/templates/");
+		path.append(name).append("/").append(name).append(".xlsx");
+		return new ModelAndView(new FileView(path.toString(), name));
+	}
+	
+	
 	/**
 	 * 移除查询条件为空的参数 移除排序分页相关字段
 	 * 
