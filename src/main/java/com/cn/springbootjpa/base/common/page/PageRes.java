@@ -18,11 +18,21 @@ public class PageRes<T> {
 
 	public static <T> PageRes<T> toRes(Page<T> page) {
 		PageRes<T> res = new PageRes<>();
-		res.setRows(page.getContent());
-		res.setRecords(page.getTotalElements());
-		res.setTotal(page.getTotalPages());
-		res.setPageIndex(page.getNumber());
-		res.setPageSize(page.getSize());
+		if(page!=null && page.getSize()!=0) {
+			res.setRows(page.getContent());
+			res.setRecords(page.getTotalElements());
+			res.setTotal(page.getTotalPages());
+			res.setPageIndex(page.getNumber());
+			res.setPageSize(page.getSize());
+		}else {
+			res.setRows(null);
+			res.setRecords(0l);
+			res.setTotal(0);
+			res.setPageIndex(0);
+			res.setPageSize(20);
+		}
+
+
 
 		return res;
 	}
