@@ -1,7 +1,7 @@
 server:
   port: 8080
   servlet:
-    context-path : /mykbp
+    context-path : /api
 spring:
   application:
     name: SpringBootJpa
@@ -13,11 +13,19 @@ spring:
     jcache:
       provider: org.ehcache.jsr107.EhcacheCachingProvider
       config: classpath:ehcache/ehcache.xml
+    redis:
+      provider: org.springframework.data.redis.cache.RedisCacheManager
+      time-to-live: 60000
+    type: none
   session:
     store-type: redis
+  data:
+    redis:
+      repositories:
+        enabled: false
   messages:
     basename:
-      core/messages.properties,core/messages_zh_CN.properties
+      i18n/messages.properties,i18n/messages_zh_CN.properties
   devtools:
     restart:
       enabled: false
@@ -52,10 +60,7 @@ spring:
       max-wait: -1
       max-idle: 8
       min-idle: 0
-    provider: org.springframework.data.redis.cache.RedisCacheManager
-    time-to-live: 60000
 logging:
   file: /app/logs/${spring.application.name}.log
   level:
     root: INFO
-    path: E:/log/springbootjpa

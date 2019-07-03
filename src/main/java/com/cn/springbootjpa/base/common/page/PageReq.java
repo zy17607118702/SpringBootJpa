@@ -40,7 +40,7 @@ public class PageReq implements Serializable {
 
 	public Direction getPageDirection() {
 		Direction direction = Direction.DESC;
-		if (sord) {
+		if (sord !=null && sord) {
 			direction = Direction.ASC;
 		}
 		return direction;

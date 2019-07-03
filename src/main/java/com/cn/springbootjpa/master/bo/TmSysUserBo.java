@@ -10,6 +10,7 @@ import com.cn.springbootjpa.master.entity.TmSysUser;
  * @author zhangyang
  *
  */
+
 public interface TmSysUserBo  extends BaseBo<TmSysUser, Integer>{
 
 }

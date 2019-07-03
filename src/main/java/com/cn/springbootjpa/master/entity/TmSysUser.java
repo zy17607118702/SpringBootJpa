@@ -1,5 +1,6 @@
 package com.cn.springbootjpa.master.entity;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import com.cn.springbootjpa.base.entity.BaseEntity;
 
 import lombok.Data;
@@ -15,6 +18,8 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @Entity
+@Cacheable
+@org.hibernate.annotations.Cache(usage=CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Table(name = "tm_sys_user", uniqueConstraints = @UniqueConstraint(columnNames = "user_name"))
 @EqualsAndHashCode(callSuper = true)
 public class TmSysUser extends BaseEntity {

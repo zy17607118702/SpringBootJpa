@@ -20,7 +20,7 @@ import com.cn.springbootjpa.master.entity.TmSysUser;
  */
 @Service
 @Transactional
-@CacheConfig(cacheNames="tmSysUserBoImpl")
+@CacheConfig(cacheNames="tmSysUserCache")
 public class TmSysUserBoImpl extends BaseBoImpl<TmSysUser, Integer> implements TmSysUserBo {
 	@Autowired
 	private TmSysUserDao dao;

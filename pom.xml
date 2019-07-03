@@ -26,7 +26,7 @@
 		<!--hibernate -->
 		<hibernate.version>5.3.7.Final</hibernate.version>
 		<!-- ehcache -->
-		<ehcache.version>2.6.8</ehcache.version>
+		<ehcache.version>2.10.6</ehcache.version>
 		<!-- mysql -->
 		<mysql-connector-java.version>8.0.13</mysql-connector-java.version>
 		<!-- swagger2 -->
@@ -106,7 +106,7 @@
 		<!-- echache -->
 		<dependency>
 			<groupId>net.sf.ehcache</groupId>
-			<artifactId>ehcache-core</artifactId>
+			<artifactId>ehcache</artifactId>
 		</dependency>
 		<!-- javassist -->
 		<dependency>
@@ -209,7 +209,7 @@
 			<!--ehcache -->
 			<dependency>
 				<groupId>net.sf.ehcache</groupId>
-				<artifactId>ehcache-core</artifactId>
+				<artifactId>ehcache</artifactId>
 				<version>${ehcache.version}</version>
 			</dependency>
 			<dependency>
@@ -425,7 +425,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<dependencies>
-					<!--热部署  配置过spring.devtools.restart.enable=false后不会自动部署-->
+					<!--热部署 配置过spring.devtools.restart.enable=false后不会自动部署 -->
 					<dependency>
 						<groupId>org.springframework</groupId>
 						<artifactId>springloaded</artifactId>
