@@ -6,7 +6,7 @@ spring:
   application:
     name: SpringBootJpa
   profiles:
-    active: test
+    active: localhost
   aop:
      proxy-target-class: false
   session:
@@ -28,7 +28,7 @@ spring:
       open-in-view: false
       database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
       hibernate:
-        ddl-auto: none
+        ddl-auto: update
         naming-strategy: org.hibernate.cfg.DefaultNamingStrategy
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
         current_session_context_class: org.springframework.orm.hibernate5.SpringSessionContext
