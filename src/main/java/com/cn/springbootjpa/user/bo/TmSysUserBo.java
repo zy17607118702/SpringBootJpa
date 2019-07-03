@@ -1,10 +1,10 @@
 /**
  * 
  */
-package com.cn.springbootjpa.master.bo;
+package com.cn.springbootjpa.user.bo;
 
 import com.cn.springbootjpa.base.bo.BaseBo;
-import com.cn.springbootjpa.master.entity.TmSysUser;
+import com.cn.springbootjpa.user.entity.TmSysUser;
 
 /**
  * @author zhangyang
@@ -12,5 +12,5 @@ import com.cn.springbootjpa.master.entity.TmSysUser;
  */
 
 public interface TmSysUserBo  extends BaseBo<TmSysUser, Integer>{
-
+	public TmSysUser checkPassword(String userName,String password);
 }

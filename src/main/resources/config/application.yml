@@ -9,14 +9,6 @@ spring:
     active: test
   aop:
      proxy-target-class: false
-  cache:
-    jcache:
-      provider: org.ehcache.jsr107.EhcacheCachingProvider
-      config: classpath:ehcache/ehcache.xml
-    redis:
-      provider: org.springframework.data.redis.cache.RedisCacheManager
-      time-to-live: 60000
-    type: none
   session:
     store-type: redis
   data:
@@ -33,26 +25,17 @@ spring:
       database: MYSQL
       show-sql: true
       format_sql: true
+      open-in-view: false
+      database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
       hibernate:
         ddl-auto: none
         naming-strategy: org.hibernate.cfg.DefaultNamingStrategy
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
         current_session_context_class: org.springframework.orm.hibernate5.SpringSessionContext
-      database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-  hibernate5:
-    packages: com.cn.springbootjpa
-    properties:
-        cache:
-          use_second_level_cache: true
-          region:
-            factory_class: org.hibernate.cache.jcache.JCacheRegionFactory
-        javax:
-          cache:
-            provider: org.ehcache.jsr107.EhcacheCachingProvider
   redis:
     host: 127.0.0.1
     port: 6379
-    database: 1
+    database: 0
     timeout: 1000
     password: Pass1234 
     pool: 

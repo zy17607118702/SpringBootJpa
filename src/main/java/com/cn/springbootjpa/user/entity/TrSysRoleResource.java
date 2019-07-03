@@ -1,4 +1,4 @@
-package com.cn.springbootjpa.master.entity;
+package com.cn.springbootjpa.user.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,9 +17,9 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @Entity
-@Table(name = "tr_sys_user_role")
+@Table(name = "tr_sys_role_resource")
 @EqualsAndHashCode(callSuper = true)
-public class TrSysUserRole extends BaseEntity {
+public class TrSysRoleResource extends BaseEntity {
 
 	/**
 	 * 
@@ -28,15 +28,15 @@ public class TrSysUserRole extends BaseEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "tr_sys_user_role_id", unique = true, nullable = false, precision = 11, scale = 0)
+	@Column(name = "tr_sys_role_resource_id", unique = true, nullable = false, precision = 11, scale = 0)
 	private Integer id;
 
-	@Column(name="tm_sys_user_id",precision=11,scale=0, nullable = false)
-	private Integer tmSysUserId;
+	@Column(name="tm_sys_resource_id",precision=11,scale=0, nullable = false)
+	private Integer tmSysResourceId;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="tm_sys_user_id",insertable=false,updatable=false)
-	private TmSysUser tmSysUser;
+	@JoinColumn(name="tm_sys_resource_id",insertable=false,updatable=false)
+	private TmSysResource tmSysResource;
 
 	@Column(name="tm_sys_role_id",precision=11,scale=0, nullable = false)
 	private Integer  tmSysRoleId;

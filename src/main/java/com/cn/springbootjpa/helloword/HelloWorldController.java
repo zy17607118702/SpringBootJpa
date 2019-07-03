@@ -7,14 +7,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cn.springbootjpa.master.entity.TmBasPart;
 import com.cn.springbootjpa.master.entity.TmBasPartDetail;
-import com.cn.springbootjpa.master.entity.TmSysUser;
-import com.cn.springbootjpa.util.MD5;
+import com.cn.springbootjpa.user.entity.TmSysUser;
 
 @RestController
 public class HelloWorldController {
@@ -41,7 +40,7 @@ public class HelloWorldController {
 		//4.进行持久化操作
 		TmSysUser user = new TmSysUser();
 		user.setUserName("smctv");
-		user.setUserPwd(MD5.md5("123"));
+		user.setUserPwd(DigestUtils.md5Hex("123"));
 		user.setRealName("张三");
 		user.setSex("1");
 		user.setAge(21);

@@ -1,12 +1,13 @@
 /**
  * 
  */
-package com.cn.springbootjpa.master.controller;
+package com.cn.springbootjpa.user.controller;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,9 +23,8 @@ import com.cn.springbootjpa.base.common.page.PageReq;
 import com.cn.springbootjpa.base.common.page.QueryCondition;
 import com.cn.springbootjpa.base.controller.BaseController;
 import com.cn.springbootjpa.base.exception.ApplicationException;
-import com.cn.springbootjpa.master.bo.TmSysUserBo;
-import com.cn.springbootjpa.master.entity.TmSysUser;
-import com.cn.springbootjpa.util.MD5;
+import com.cn.springbootjpa.user.bo.TmSysUserBo;
+import com.cn.springbootjpa.user.entity.TmSysUser;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -50,7 +50,7 @@ public class TmSysUserApiController extends BaseController<TmSysUser, Integer> {
 	@Override
 	public void preSave(TmSysUser model) {
 		// 用户加密
-		model.setUserPwd(MD5.md5(model.getUserPwd()));
+		model.setUserPwd(DigestUtils.md5Hex(model.getUserPwd()));
 	}
 
 	@Override
@@ -121,6 +121,7 @@ public class TmSysUserApiController extends BaseController<TmSysUser, Integer> {
  * @param query
  * @return
  */
+	@SuppressWarnings("unused")
 	@PostMapping(value = { "/export" })
 	@ApiOperation(value = "导出数据", notes = "导出页面数据")
 	@ApiImplicitParam(name = "request", value = "查询条件集合", required = true, dataType = "JSON")

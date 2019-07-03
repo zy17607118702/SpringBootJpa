@@ -1,4 +1,4 @@
-package com.cn.springbootjpa.master.entity;
+package com.cn.springbootjpa.user.entity;
 
 import javax.persistence.Cacheable;
 import javax.persistence.Column;
@@ -19,7 +19,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @Entity
 @Cacheable
-@org.hibernate.annotations.Cache(usage=CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@org.hibernate.annotations.Cache(usage=CacheConcurrencyStrategy.NONSTRICT_READ_WRITE,region="userCache")
 @Table(name = "tm_sys_user", uniqueConstraints = @UniqueConstraint(columnNames = "user_name"))
 @EqualsAndHashCode(callSuper = true)
 public class TmSysUser extends BaseEntity {
@@ -42,7 +42,7 @@ public class TmSysUser extends BaseEntity {
 	public static final String FIELD_MARKSTATUS="markStatus";
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "tm_sys_user_id", unique = true, nullable = false, precision = 11, scale = 0)
 	private Integer id;
 

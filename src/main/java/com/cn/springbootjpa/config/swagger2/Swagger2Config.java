@@ -1,4 +1,4 @@
-package com.cn.springbootjpa.util.swagger2;
+package com.cn.springbootjpa.config.swagger2;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
