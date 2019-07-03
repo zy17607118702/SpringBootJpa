@@ -21,7 +21,7 @@ import com.cn.springbootjpa.user.entity.TmSysUser;
  */
 @Service
 @Transactional
-@CacheConfig(cacheNames="tmSysUserBo")
+
 public class TmSysUserBoImpl extends BaseBoImpl<TmSysUser, Integer> implements TmSysUserBo {
 	@Autowired
 	private TmSysUserDao dao;
@@ -33,8 +33,8 @@ public class TmSysUserBoImpl extends BaseBoImpl<TmSysUser, Integer> implements T
 	}
 
 	@Override
-	@Cacheable(value="checkPassword_userName_password",key="#p0")
 	public TmSysUser checkPassword(String userName,String password) {
+		
 		return  dao.checkPassword(userName, password);
 	}
 }
