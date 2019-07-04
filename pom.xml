@@ -196,10 +196,6 @@
 		</dependency>
 		<!-- jwt -->
 		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-jwt</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt</artifactId>
 		</dependency>
@@ -430,11 +426,6 @@
 				<version>5.5.1</version>
 			</dependency>
 			<!-- jwt -->
-			<dependency>
-				<groupId>org.springframework.security</groupId>
-				<artifactId>spring-security-jwt</artifactId>
-				<version>1.0.9.RELEASE</version>
-			</dependency>
 			<dependency>
 				<groupId>io.jsonwebtoken</groupId>
 				<artifactId>jjwt</artifactId>

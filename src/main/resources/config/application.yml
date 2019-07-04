@@ -28,7 +28,7 @@ spring:
       open-in-view: false
       database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
       hibernate:
-        ddl-auto: update
+        ddl-auto: none
         naming-strategy: org.hibernate.cfg.DefaultNamingStrategy
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
         current_session_context_class: org.springframework.orm.hibernate5.SpringSessionContext
@@ -43,6 +43,17 @@ spring:
       max-wait: -1
       max-idle: 8
       min-idle: 0
+      
+security:
+  jwt:
+    login: /api/login
+    logout: /api/logout
+    refresh: refresh
+    prefix: Bearer
+    header: Authorization
+    expiration: 86400
+    secret: changeitasyouwish
+    
 logging:
   file: /app/logs/${spring.application.name}.log
   level:
