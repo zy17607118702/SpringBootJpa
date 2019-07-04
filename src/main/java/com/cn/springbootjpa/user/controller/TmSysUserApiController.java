@@ -56,7 +56,7 @@ public class TmSysUserApiController extends BaseController<TmSysUser, Integer> {
 	@Override
 	protected Map<String, Object> validateUnique(TmSysUser t) {
 		Map<String, Object> result = new HashMap<>();
-		result.put(TmSysUser.FIELD_USERNAME, t.getUserName());
+		result.put(TmSysUser.FIELD_USERNAME, t.getUsername());
 		result.put(TmSysUser.FIELD_AGE, t.getAge());
 		return result;
 	}

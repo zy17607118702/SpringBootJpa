@@ -19,7 +19,7 @@ public class JwtAuthenticationConfig {
 	@Value("${security.jwt.header:Authorization}")
 	private String header;
 
-	@Value("${security.jwt.prefix:Bearer}")
+	@Value("${security.jwt.prefix:}")
 	private String prefix;
 
 	@Value("${security.jwt.secret}")
