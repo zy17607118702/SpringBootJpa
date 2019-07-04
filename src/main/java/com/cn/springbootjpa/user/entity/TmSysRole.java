@@ -1,10 +1,15 @@
 package com.cn.springbootjpa.user.entity;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -24,8 +29,13 @@ public class TmSysRole extends BaseEntity {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	public static final String TAB_TMSYSROLE = "tm_sys_role";
+	public static final String FIELD_ID = "id";
+	public static final String FIELD_ROLECODE = "roleCode";
+	public static final String FIELD_ROLENAME = "roleName";
+	public static final String FIELD_MARKSTATUS = "markStatus";
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "tm_sys_role_id", unique = true, nullable = false, precision = 11, scale = 0)
 	private Integer id;
 
@@ -35,7 +45,9 @@ public class TmSysRole extends BaseEntity {
 	@Column(name = "role_name", length = 50)
 	private String roleName;
 
-	@Column(name="mark_status",length=1,nullable=false)
+	@Column(name = "mark_status", length = 1, nullable = false)
 	private Boolean markStatus;
 
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "tmSysRole")
+	private Set<TrSysUserRole> trSysUserRole;
 }

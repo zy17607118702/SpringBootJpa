@@ -24,6 +24,16 @@ public class TmSysResource extends BaseEntity {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	public static final String TAB_TMSYSRESOURCE = "tm_sys_resource";
+	public static final String FIELD_ID = "id";
+	public static final String FIELD_PARENTRESID = "parentResid";
+	public static final String FIELD_RESTYPE = "resType";
+	public static final String FIELD_RESNAMEC = "resNameC";
+	public static final String FIELD_RESNAMEE = "resNameE";
+	public static final String FIELD_RESPATH = "resPath";
+	public static final String FIELD_RESLEVEL = "resLevel";
+	public static final String FIELD_MARKSTATUS = "markStatus";
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "tm_sys_resource_id", unique = true, nullable = false, precision = 11, scale = 0)
@@ -48,7 +58,7 @@ public class TmSysResource extends BaseEntity {
 	@Column(name = "res_level", precision = 5, scale = 0)
 	private Integer resLevel;
 
-	@Column(name="mark_status",length=1,nullable=false)
+	@Column(name = "mark_status", length = 1, nullable = false)
 	private Boolean markStatus;
 
 }

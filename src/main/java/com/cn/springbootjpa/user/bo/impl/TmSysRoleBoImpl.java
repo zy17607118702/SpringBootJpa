@@ -9,9 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.cn.springbootjpa.base.bo.BaseBoImpl;
 import com.cn.springbootjpa.base.dao.BaseDao;
-import com.cn.springbootjpa.user.bo.TmSysUserBo;
-import com.cn.springbootjpa.user.dao.TmSysUserDao;
-import com.cn.springbootjpa.user.entity.TmSysUser;
+import com.cn.springbootjpa.user.bo.TmSysRoleBo;
+import com.cn.springbootjpa.user.dao.TmSysRoleDao;
+import com.cn.springbootjpa.user.entity.TmSysRole;
 
 /**
  * @author zhangyang
@@ -19,20 +19,14 @@ import com.cn.springbootjpa.user.entity.TmSysUser;
  */
 @Service
 @Transactional
-
-public class TmSysUserBoImpl extends BaseBoImpl<TmSysUser, Integer> implements TmSysUserBo {
+public class TmSysRoleBoImpl extends BaseBoImpl<TmSysRole, Integer> implements TmSysRoleBo {
 	@Autowired
-	private TmSysUserDao dao;
+	private TmSysRoleDao dao;
 
 	@Override
-	public BaseDao<TmSysUser, Integer> getDao() {
+	public BaseDao<TmSysRole, Integer> getDao() {
 		// TODO Auto-generated method stub
 		return dao;
 	}
-
-	@Override
-	public TmSysUser checkPassword(String userName,String password) {
-		
-		return  dao.checkPassword(userName, password);
-	}
+	
 }

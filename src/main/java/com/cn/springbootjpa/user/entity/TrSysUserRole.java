@@ -26,8 +26,15 @@ public class TrSysUserRole extends BaseEntity {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	public static final String TAB_TRSYSUSERROLE = "tr_sys_user_role";
+	public static final String FIELD_ID = "id";
+	public static final String FIELD_TMSYSUSERID = "tmSysUserId";
+	public static final String FIELD_TMSYSUSER = "tmSysUser";
+	public static final String FIELD_TMSYSROLEID = "tmSysRoleId";
+	public static final String FIELD_TMSYSROLE = "tmSysRole";
+	public static final String FIELD_MARKSTATUS = "markStatus";
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "tr_sys_user_role_id", unique = true, nullable = false, precision = 11, scale = 0)
 	private Integer id;
 
