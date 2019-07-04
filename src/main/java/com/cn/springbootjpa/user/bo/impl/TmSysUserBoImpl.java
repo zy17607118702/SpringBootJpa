@@ -32,7 +32,11 @@ public class TmSysUserBoImpl extends BaseBoImpl<TmSysUser, Integer> implements T
 
 	@Override
 	public TmSysUser checkPassword(String userName,String password) {
-		
 		return  dao.checkPassword(userName, password);
+	}
+
+	@Override
+	public TmSysUser findByUsername(String userName) {
+		return dao.findByUsername(userName);
 	}
 }

@@ -3,6 +3,9 @@
  */
 package com.cn.springbootjpa.user.bo.impl;
 
+import java.util.List;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,6 +30,12 @@ public class TrSysRoleResourceBoImpl extends BaseBoImpl<TrSysRoleResource, Integ
 	public BaseDao<TrSysRoleResource, Integer> getDao() {
 		// TODO Auto-generated method stub
 		return dao;
+	}
+
+	@Override
+	public List<String> findRoleResources(Set<String> roles) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

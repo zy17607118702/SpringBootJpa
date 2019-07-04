@@ -3,6 +3,9 @@
  */
 package com.cn.springbootjpa.user.bo;
 
+import java.util.List;
+import java.util.Set;
+
 import org.springframework.cache.annotation.CacheConfig;
 
 import com.cn.springbootjpa.base.bo.BaseBo;
@@ -17,4 +20,10 @@ import com.cn.springbootjpa.user.entity.TrSysRoleResource;
 
 @CacheConfig(cacheNames = "trSysRoleResource")
 public interface TrSysRoleResourceBo extends BaseBo<TrSysRoleResource, Integer> {
+	/**
+	 * 根据用户角色获取对应的资源菜单
+	 * @param roles
+	 * @return
+	 */
+	public List<String> findRoleResources(Set<String> roles);
 }

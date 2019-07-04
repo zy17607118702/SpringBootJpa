@@ -3,6 +3,8 @@
  */
 package com.cn.springbootjpa.user.bo.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,6 +29,12 @@ public class TrSysUserRoleBoImpl extends BaseBoImpl<TrSysUserRole, Integer> impl
 	public BaseDao<TrSysUserRole, Integer> getDao() {
 		// TODO Auto-generated method stub
 		return dao;
+	}
+
+	@Override
+	public List<String> findUserRoles(String userName) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }
