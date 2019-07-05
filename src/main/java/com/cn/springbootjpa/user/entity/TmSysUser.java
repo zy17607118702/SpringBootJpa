@@ -1,8 +1,5 @@
 package com.cn.springbootjpa.user.entity;
 
-import java.util.Collection;
-import java.util.List;
-
 import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,12 +7,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import com.cn.springbootjpa.base.entity.BaseEntity;
 
@@ -28,7 +22,7 @@ import lombok.EqualsAndHashCode;
 @org.hibernate.annotations.Cache(usage=CacheConcurrencyStrategy.NONSTRICT_READ_WRITE,region="userCache")
 @Table(name = "tm_sys_user", uniqueConstraints = @UniqueConstraint(columnNames = "user_name"))
 @EqualsAndHashCode(callSuper = true)
-public class TmSysUser extends BaseEntity implements UserDetails {
+public class TmSysUser extends BaseEntity{
 
 	/**
 	 * 
@@ -77,60 +71,7 @@ public class TmSysUser extends BaseEntity implements UserDetails {
 	private Boolean locked;
 
 	@Column(name="mark_status",length=1,nullable=false)
-	private Boolean markStatus;
-
-	@Transient
-	private List<? extends GrantedAuthority>  authorities;
-	
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
-		return authorities;
-	}
-
-
-	@Override
-	public String getPassword() {
-		// TODO Auto-generated method stub
-		return this.userPwd;
-	}
-
-	@Override
-	public String getUsername() {
-		// TODO Auto-generated method stub
-		return this.userName;
-	}
-
-
-
-	@Transient
-	@Override
-	public boolean isAccountNonExpired() {
-		// TODO Auto-generated method stub
-		return true;
-	}
-
-	@Transient
-	@Override
-	public boolean isAccountNonLocked() {
-		// TODO Auto-generated method stub
-		return true;
-	}
-
-	@Transient
-	@Override
-	public boolean isCredentialsNonExpired() {
-		// TODO Auto-generated method stub
-		return true;
-	}
-
-	@Transient
-	@Override
-	public boolean isEnabled() {
-		// TODO Auto-generated method stub
-		return this.markStatus;
-	}
-	
+	private Boolean markStatus;	
 	/**
 	 * @Transient 不set该字段到数据库表 很多时候非数据库字段就可以用该注解
 	 * @GeneratedValue 主键自增方式	

@@ -34,7 +34,7 @@ public class TrSysUserRoleBoImpl extends BaseBoImpl<TrSysUserRole, Integer> impl
 	@Override
 	public List<String> findUserRoles(String userName) {
 		// TODO Auto-generated method stub
-		return null;
+		return dao.findUserRoles(userName);
 	}
 	
 }
