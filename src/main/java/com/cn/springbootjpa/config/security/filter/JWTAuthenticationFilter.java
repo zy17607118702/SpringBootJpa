@@ -1,4 +1,4 @@
-package com.cn.springbootjpa.config.security.jwt;
+package com.cn.springbootjpa.config.security.filter;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,6 +16,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import com.cn.springbootjpa.config.security.model.JwtUser;
 import com.cn.springbootjpa.config.security.model.LoginUser;
 import com.cn.springbootjpa.config.security.utils.JwtTokenUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;

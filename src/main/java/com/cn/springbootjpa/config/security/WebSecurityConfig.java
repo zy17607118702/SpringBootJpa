@@ -15,8 +15,8 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import com.cn.springbootjpa.config.security.jwt.JWTAuthenticationFilter;
-import com.cn.springbootjpa.config.security.jwt.JWTAuthorizationFilter;
+import com.cn.springbootjpa.config.security.filter.JWTAuthenticationFilter;
+import com.cn.springbootjpa.config.security.filter.JWTAuthorizationFilter;
 import com.cn.springbootjpa.config.security.jwt.JwtAuthenticationConfig;
 import com.cn.springbootjpa.config.security.utils.SecurityCheck;
 

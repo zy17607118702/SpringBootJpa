@@ -1,4 +1,4 @@
-package com.cn.springbootjpa.config.security.jwt;
+package com.cn.springbootjpa.config.security.model;
 
 import java.util.Collection;
 import java.util.List;
