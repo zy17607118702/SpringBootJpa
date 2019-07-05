@@ -35,7 +35,7 @@ public class TrSysRoleResourceBoImpl extends BaseBoImpl<TrSysRoleResource, Integ
 	@Override
 	public List<String> findRoleResources(Set<String> roles) {
 		// TODO Auto-generated method stub
-		return null;
+		return dao.findRoleResources(roles);
 	}
 	
 }

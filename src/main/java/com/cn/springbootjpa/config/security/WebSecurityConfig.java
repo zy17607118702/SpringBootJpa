@@ -48,12 +48,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 	       http.cors().and().csrf().disable()
            .authorizeRequests()
+           //对于登陆和密码修改两个请求以及异常请求放行 
            .antMatchers(config.getUrl()).permitAll()
            .antMatchers("/error").permitAll()
            .antMatchers("/user/updatepwdByUsername").permitAll()
+           //其他请求都匹配权限 securityCheck.check方法
            .antMatchers("/**").access("@securityCheck.check(authentication,request)")
            .anyRequest().authenticated()
            .and()
+           //token过滤器
            .addFilter(new JWTAuthenticationFilter(authenticationManager()))
            .addFilter(new JWTAuthorizationFilter(authenticationManager()))
            // 不需要session

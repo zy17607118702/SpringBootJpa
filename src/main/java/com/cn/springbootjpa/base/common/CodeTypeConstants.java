@@ -8,4 +8,5 @@ package com.cn.springbootjpa.base.common;
 public class CodeTypeConstants {
 	public static final int EXPORT_MAX_NUM=65000; 
 	public static final int EXPORT_MIN_NUM=0;
+	public static final String ROLE_ADMIN="1";
 }

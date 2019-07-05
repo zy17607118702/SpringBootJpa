@@ -19,7 +19,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import com.cn.springbootjpa.config.security.model.JwtUser;
 import com.cn.springbootjpa.config.security.model.LoginUser;
 import com.cn.springbootjpa.config.security.utils.JwtTokenUtils;
-import com.cn.springbootjpa.util.StringUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
@@ -75,6 +74,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         // 但是这里创建的token只是单纯的token
         // 按照jwt的规定，最后请求的时候应该是 `Bearer token`
         response.setHeader("token", JwtTokenUtils.TOKEN_PREFIX + token);
+        response.addHeader("Content-Type", "application/json");
     }
 
     @Override
