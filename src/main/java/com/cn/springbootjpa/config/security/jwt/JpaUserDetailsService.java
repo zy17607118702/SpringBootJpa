@@ -29,8 +29,6 @@ public class JpaUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("Username [" + username + "] user not found.");
         }
         List<String> roles = trSysUserRoleBo.findUserRoles(username);
-        //roles.add("USERS");
         return new JwtUser(user,roles);
     }
-
 }

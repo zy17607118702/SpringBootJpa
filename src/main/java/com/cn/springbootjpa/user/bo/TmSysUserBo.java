@@ -27,4 +27,6 @@ public interface TmSysUserBo  extends BaseBo<TmSysUser, Integer>{
 	 */
 	@Cacheable(value="#root.methodName")
 	public TmSysUser findByUsername(String userName);
+	
+	public void updatePwd(String username,String pwd);
 }

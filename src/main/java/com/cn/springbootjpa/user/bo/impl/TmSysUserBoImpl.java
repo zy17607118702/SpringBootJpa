@@ -39,4 +39,9 @@ public class TmSysUserBoImpl extends BaseBoImpl<TmSysUser, Integer> implements T
 	public TmSysUser findByUsername(String userName) {
 		return dao.findByUsername(userName);
 	}
+
+	@Override
+	public void updatePwd(String username, String pwd) {
+		dao.updatePwd(username, pwd);	
+	}
 }

@@ -4,15 +4,19 @@ import java.text.ParseException;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.cn.springbootjpa.base.common.page.QueryCondition;
 
 public class QueryConditionTest {
+
+	
 	@Test
 	public void testGt() throws ParseException {
 		QueryCondition gt = QueryCondition.gt("a", 1);
 		Assert.assertEquals("a>1", gt.toString());
-		System.out.println(gt.c2s());
+		//System.out.println(gt.c2s());
 		QueryCondition gt2 = QueryCondition.gt("a", "1");
 		Assert.assertEquals("a>'1'", gt2.toString());
 //		QueryCondition gt3 = QueryCondition.gt("a", DateUtil.parseDate("2015", "yyyy"));
@@ -20,9 +24,10 @@ public class QueryConditionTest {
 		
 	}
 	
-	@Test
-	public void IntegerTest() {
-		Integer[] test= new Integer[] {1,3};
-		System.out.println(test);
-	}
+//	@Test
+//	public void IntegerTest() {
+//		Integer[] test= new Integer[] {1,3};
+//		System.out.println(test);
+//	}
+
 }
