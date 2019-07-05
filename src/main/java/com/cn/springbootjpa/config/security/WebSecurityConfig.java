@@ -52,7 +52,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
            .antMatchers("/error").permitAll()
            .antMatchers("/user/updatepwdByUsername").permitAll()
            .antMatchers("/**").access("@securityCheck.check(authentication,request)")
-           // 其他都放行了
            .anyRequest().authenticated()
            .and()
            .addFilter(new JWTAuthenticationFilter(authenticationManager()))

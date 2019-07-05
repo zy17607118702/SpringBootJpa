@@ -19,6 +19,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import com.cn.springbootjpa.config.security.model.JwtUser;
 import com.cn.springbootjpa.config.security.model.LoginUser;
 import com.cn.springbootjpa.config.security.utils.JwtTokenUtils;
+import com.cn.springbootjpa.util.StringUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
@@ -60,7 +61,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         JwtUser jwtUser = (JwtUser) authResult.getPrincipal();
         System.out.println("jwtUser:" + jwtUser.toString());
-        boolean isRemember = rememberMe.get() == 1;
+        boolean isRemember = rememberMe.get()!=null? rememberMe.get()== 1:false;
 
         String role = "";
         Collection<? extends GrantedAuthority> authorities = jwtUser.getAuthorities();
