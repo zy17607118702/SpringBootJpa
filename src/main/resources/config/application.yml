@@ -11,6 +11,11 @@ spring:
      proxy-target-class: false
   session:
     store-type: redis
+  cache:
+    type: jcache
+    jcache:
+      provider: org.ehcache.jsr107.EhcacheCachingProvider
+      config: classpath:ehcache/ehcache.xml
   data:
     redis:
       repositories:
@@ -32,6 +37,16 @@ spring:
         naming-strategy: org.hibernate.cfg.DefaultNamingStrategy
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
         current_session_context_class: org.springframework.orm.hibernate5.SpringSessionContext
+      properties:
+        hibernate:
+          cache:
+            use_second_level_cache: true
+            use_query_cache: true
+            region:
+              factory_class: org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory
+            javax:
+              cache:
+                provider: org.ehcache.jsr107.EhcacheCachingProvider  
   redis:
     host: 127.0.0.1
     port: 6379
