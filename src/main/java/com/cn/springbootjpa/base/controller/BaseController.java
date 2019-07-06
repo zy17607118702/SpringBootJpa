@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -188,7 +189,7 @@ public abstract class BaseController<T extends BaseEntity, ID> extends BaseRestC
 	@GetMapping(value = { "/downloadXls" })
 	@ApiOperation(value = "下载模板", notes = "下载模板方法")
 	@ApiImplicitParam(name = "request", value = "查询条件集合", required = true, dataType = "JSON")
-	public ModelAndView downloadXls(@PathVariable("name") String name) {
+	public ModelAndView downloadXls(@RequestParam("name") String name) {
 		StringBuilder path = new StringBuilder("/templates/");
 		path.append(name).append("/").append(name).append(".xlsx");
 		return new ModelAndView(new FileView(path.toString(), name));

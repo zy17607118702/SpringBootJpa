@@ -3,6 +3,7 @@
  */
 package com.cn.springbootjpa.user.controller;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +26,8 @@ import com.cn.springbootjpa.base.controller.BaseController;
 import com.cn.springbootjpa.base.exception.ApplicationException;
 import com.cn.springbootjpa.user.bo.TmSysUserBo;
 import com.cn.springbootjpa.user.entity.TmSysUser;
+import com.cn.springbootjpa.util.DateUtils;
+import com.cn.springbootjpa.util.excel.JxlsExcelView;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -63,11 +66,6 @@ public class TmSysUserApiController extends BaseController<TmSysUser, Integer> {
 		result.put(TmSysUser.FIELD_AGE, t.getAge());
 		return result;
 	}
-
-	// @GetMapping(value="exception")
-	// public void ExceptionTest() {
-	// throw new ApplicationException("AE0001");
-	// }
 
 	// @SuppressWarnings("rawtypes")
 	// @ResponseBody
@@ -150,12 +148,10 @@ public class TmSysUserApiController extends BaseController<TmSysUser, Integer> {
 		pageReq.setRows(CodeTypeConstants.EXPORT_MAX_NUM);
 
 		Page<TmSysUser> findAll = getBo().findAll(criteria, PageReq.getPageable(pageReq));
-
-		// List<TrBasPartkitPart> partPart1=new ArrayList<>();
-		// List<TrBasPartkitPart> partPart2=new ArrayList<>();
-		// return new ModelAndView(new
-		// JxlsExcelView("/templates/partkit/parkit_export.xls", "parkit_" + ymd), map);
-		// }
-		return null;
+		List<TmSysUser> data = findAll.getContent();
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("data", data != null ? data : null);
+		String ymd = DateUtils.format(new Date(), DateUtils.FORMAT_DATE_YYYY_MM_DD_HHMMSS);
+		return new ModelAndView(new JxlsExcelView("/templates/user/user_export.xlsx", "user_" + ymd), map);
 	}
 }

@@ -45,7 +45,7 @@ public class JxlsExcelView extends AbstractView {
 			HttpServletResponse response) throws Exception {
 		Context context = new Context(model);
 		response.setContentType(getContentType());
-		response.setHeader("content-disposition", "attachment;filename=" + exportFileName + ".xls");
+		response.setHeader("content-disposition", "attachment;filename=" + exportFileName + ".xlsx");
 		ServletOutputStream os = response.getOutputStream();
 		InputStream is = new ClassPathResource(templatePath).getInputStream();
 		JxlsHelper.getInstance().processTemplate(is, os, context);

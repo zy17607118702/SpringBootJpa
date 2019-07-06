@@ -34,20 +34,4 @@
 		</expiry>
 	</cache>
 	<cache alias="TcSysCodeListCache" uses-template="default" />
-	<cache alias="TmSysParameterCache" uses-template="default" />
-	<cache alias="TmBasPartCache" uses-template="default" />
-	<cache alias="TrBasPartSupplCache" uses-template="default" />
-	<cache alias="TmBasBatchCache" uses-template="default" />
-	<cache alias="TmBasSupplResptimeCache" uses-template="default" />
-	<cache alias="TmBasStorageRuleCache" uses-template="default" />
-	<cache alias="TrBasPartStorageCache" uses-template="default" />
-	<cache alias="TrBasPartSupplQuotaCache" uses-template="default" />
-	<cache alias="TmBasPlantCache" uses-template="default" />
-	<cache alias="TmBasStorageCache" uses-template="default" />
-	<cache alias="TmBasTranscodeCheckCache" uses-template="default" />
-	<cache alias="TmBasWorkshopCache" uses-template="default" />
-	<cache alias="TmBasRouteNodeCache" uses-template="default" />
-	<cache alias="TmBasPackageCache" uses-template="default" />
-	<cache alias="TmBasSupplCache" uses-template="default" />
-	<!-- <cache alias="TmBasShiftModelcodeCache" uses-template="default" /> -->
 </config>

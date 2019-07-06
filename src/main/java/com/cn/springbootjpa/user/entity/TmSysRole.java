@@ -2,6 +2,7 @@ package com.cn.springbootjpa.user.entity;
 
 import java.util.Set;
 
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,13 +14,18 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import com.cn.springbootjpa.base.entity.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Data
 @Entity
+@Cacheable
+@org.hibernate.annotations.Cache(usage=CacheConcurrencyStrategy.NONSTRICT_READ_WRITE,region="RoleCache")
 @Table(name = "tm_sys_role", uniqueConstraints = @UniqueConstraint(columnNames = "role_code"))
 @EqualsAndHashCode(callSuper = true)
 public class TmSysRole extends BaseEntity {
@@ -48,6 +54,11 @@ public class TmSysRole extends BaseEntity {
 	@Column(name = "mark_status", length = 1, nullable = false)
 	private Boolean markStatus;
 
+	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "tmSysRole")
 	private Set<TrSysUserRole> trSysUserRole;
+	
+	@JsonIgnore
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "tmSysRole")
+	private Set<TrSysRoleResource> trSysRoleResource;
 }
