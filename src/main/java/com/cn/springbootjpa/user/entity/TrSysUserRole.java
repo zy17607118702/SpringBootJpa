@@ -1,5 +1,6 @@
 package com.cn.springbootjpa.user.entity;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import com.cn.springbootjpa.base.entity.BaseEntity;
 
 import lombok.Data;
@@ -18,6 +21,8 @@ import lombok.EqualsAndHashCode;
 @Data
 @Entity
 @Table(name = "tr_sys_user_role")
+@Cacheable
+@org.hibernate.annotations.Cache(usage=CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @EqualsAndHashCode(callSuper = true)
 public class TrSysUserRole extends BaseEntity {
 

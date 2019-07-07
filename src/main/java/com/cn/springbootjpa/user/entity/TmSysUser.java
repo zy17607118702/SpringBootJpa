@@ -52,10 +52,10 @@ public class TmSysUser extends BaseEntity{
 	@Column(name = "tm_sys_user_id", unique = true, nullable = false, precision = 11, scale = 0)
 	private Integer id;
 
-	@Column(name="user_name",length=50,unique=true)
+	@Column(name="user_name",length=100,unique=true)
 	private String userName;
 
-	@Column(name="user_pwd",length=50)
+	@Column(name="user_pwd",length=200)
 	private String userPwd;
 
 	@Column(name="real_name",length=30)

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workbook>
+	<worksheet idx="0">
+		<!-- header部分也必须定义section -->
+		<section startRow="0" endRow="1">
+		</section>
+		<loop startRow="2" endRow="2" items="list" var="v"
+			varType="com.cn.springbootjpa.user.importvo.TmSysUserVo">
+			<section startRow="2" endRow="2">
+				<mapping row="2" col="0">v.userName</mapping>
+				<mapping row="2" col="1">v.userPwd</mapping>
+				<mapping row="2" col="2">v.realName</mapping>
+				<mapping row="2" col="3">v.sex</mapping>
+				<mapping row="2" col="4">v.age</mapping>
+				<mapping row="2" col="5">v.phone</mapping>
+				<mapping row="2" col="6">v.email</mapping>
+				<mapping row="2" col="7">v.locked</mapping>
+				<mapping row="2" col="8">v.markStatus</mapping>
+			</section>
+			<loopbreakcondition>
+				<rowcheck offset="0">
+					<cellcheck offset="0"></cellcheck>
+					<cellcheck offset="1"></cellcheck>
+					<cellcheck offset="2"></cellcheck>
+				</rowcheck>
+			</loopbreakcondition>
+		</loop>
+	</worksheet>
+</workbook>

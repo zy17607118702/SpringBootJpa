@@ -11,7 +11,7 @@ import javax.persistence.TemporalType;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.cn.springbootjpa.util.AuditingEntityListener;
+import com.cn.springbootjpa.base.common.AuditingEntityListener;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

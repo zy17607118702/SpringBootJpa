@@ -3,34 +3,44 @@
  */
 package com.cn.springbootjpa.user.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.domain.Page;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.cn.springbootjpa.base.bo.BaseBo;
 import com.cn.springbootjpa.base.common.CodeTypeConstants;
+import com.cn.springbootjpa.base.common.ImportResult;
 import com.cn.springbootjpa.base.common.QueryParam;
 import com.cn.springbootjpa.base.common.page.PageReq;
 import com.cn.springbootjpa.base.common.page.QueryCondition;
 import com.cn.springbootjpa.base.controller.BaseController;
+import com.cn.springbootjpa.base.exception.AppException;
 import com.cn.springbootjpa.base.exception.ApplicationException;
 import com.cn.springbootjpa.user.bo.TmSysUserBo;
 import com.cn.springbootjpa.user.entity.TmSysUser;
+import com.cn.springbootjpa.user.importvo.TmSysUserVo;
 import com.cn.springbootjpa.util.DateUtils;
 import com.cn.springbootjpa.util.excel.JxlsExcelView;
+import com.cn.springbootjpa.util.excel.JxlsReader;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 
 /**
@@ -46,7 +56,6 @@ public class TmSysUserApiController extends BaseController<TmSysUser, Integer> {
 
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
-
 	@Override
 	protected BaseBo<TmSysUser, Integer> getBo() {
 		// TODO Auto-generated method stub
@@ -67,58 +76,42 @@ public class TmSysUserApiController extends BaseController<TmSysUser, Integer> {
 		return result;
 	}
 
-	// @SuppressWarnings("rawtypes")
-	// @ResponseBody
-	// @PostMapping(value = { "/import" })
-	// public List<ImportResult> importDo(@RequestBody MultipartFile file,
-	// @RequestParam("chkUpdate") String chkUpdate, HttpServletRequest request) {
-	// if(file!=null) {
-	// String fileNameStr = file.getOriginalFilename();
-	// String fileType = fileNameStr.substring(fileNameStr.lastIndexOf(".") +
-	// 1).toLowerCase();
-	// if (!fileType.equals("xls") && !fileType.equals("xlsx")) {
-	// throw new AppException("文件[" + fileNameStr + "]不是正确的导入模板！");
-	// }
-	// List<PartkitVo> partkitList =new ArrayList<PartkitVo>();
-	// List<PartkitPartVo> partkitPart1List =new ArrayList<PartkitPartVo>();
-	// List<PartkitPartVo> partkitPart2List =new ArrayList<PartkitPartVo>();
-	// Map<String, Object> beans = new HashMap<String, Object>();
-	// beans.put("partkitList", partkitList);
-	// beans.put("partkitPart1List", partkitPart1List);
-	// beans.put("partkitPart2List", partkitPart2List);
-	// try {
-	// List<String> errors = JxlsReader.readXls(
-	// new ClassPathResource("/templates/partkit/partkit.xml").getInputStream(),
-	// file.getInputStream(),
-	// beans);
-	// if (errors != null && !errors.isEmpty()) {
-	// throw new AppException(errors.toArray(new String[0]).toString());
-	// }
-	// try {
-	// boolean isUpdate = chkUpdate.equals("1");
-	// ImportResult<String> partkitresult = TmBasPartkitBo.importFrom(partkitList,
-	// isUpdate);
-	// //导入子表数据
-	// ImportResult<String> partkitPart1result =
-	// trBasPartkitPartBo.importPartForm1(partkitPart1List, isUpdate);
-	// ImportResult<String> partkitPart2result =
-	// trBasPartkitPartBo.importPartForm2(partkitPart2List, isUpdate);
-	// List<ImportResult> results = new ArrayList<ImportResult>();
-	// results.add(partkitresult);
-	// results.add(partkitPart1result);
-	// results.add(partkitPart2result);
-	// return results;
-	// } catch (Exception e) {
-	// throw new AppException(e.getLocalizedMessage());
-	// }
-	// } catch (Exception e) {
-	// e.printStackTrace();
-	// throw new AppException("数据导入异常:" + e.getLocalizedMessage());
-	// }
-	// }else {
-	// throw new AppException("上传文件为空!");
-	// }
-	// }
+	@ResponseBody
+	@PostMapping(value = { "/import" })
+	@ApiOperation(value = "导入数据", notes = "导入用户数据")
+	@ApiImplicitParams({ @ApiImplicitParam(name = "file", value = "导入文件", required = true, dataType = "file"),
+			@ApiImplicitParam(name = "chkUpdate", value = "重复时可导入", required = true, dataType = "String") })
+	public ImportResult<String> importDo(@RequestBody MultipartFile file, @RequestParam("chkUpdate") String chkUpdate) {
+		if (file != null) {
+			String fileNameStr = file.getOriginalFilename();
+			String fileType = fileNameStr.substring(fileNameStr.lastIndexOf(".") + 1).toLowerCase();
+			if (!fileType.equals("xls") && !fileType.equals("xlsx")) {
+				throw new AppException("文件[" + fileNameStr + "]不是正确的导入模板！");
+			}
+			List<TmSysUserVo> userVoList = new ArrayList<TmSysUserVo>();
+			Map<String, Object> beans = new HashMap<String, Object>();
+			beans.put("list", userVoList);
+			try {
+				List<String> errors = JxlsReader.readXls(
+						new ClassPathResource("/templates/user/user.xml").getInputStream(), file.getInputStream(),
+						beans);
+				if (errors != null && !errors.isEmpty()) {
+					throw new AppException(errors.toArray(new String[0]).toString());
+				}
+				try {
+					boolean isUpdate = chkUpdate.equals("1");
+					return tmSysUserBo.importVo(userVoList, isUpdate);
+				} catch (Exception e) {
+					throw new AppException(e.getLocalizedMessage());
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw new AppException("数据导入异常:" + e.getLocalizedMessage());
+			}
+		} else {
+			throw new AppException("上传文件为空!");
+		}
+	}
 
 	/**
 	 * 导出功能实现
@@ -126,7 +119,6 @@ public class TmSysUserApiController extends BaseController<TmSysUser, Integer> {
 	 * @param query
 	 * @return
 	 */
-	@SuppressWarnings("unused")
 	@PostMapping(value = { "/export" })
 	@ApiOperation(value = "导出数据", notes = "导出页面数据")
 	@ApiImplicitParam(name = "request", value = "查询条件集合", required = true, dataType = "JSON")

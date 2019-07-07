@@ -1,4 +1,4 @@
-package com.cn.springbootjpa.util;
+package com.cn.springbootjpa.base.common;
 
 import java.util.Date;
 
@@ -6,6 +6,8 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 
 import com.cn.springbootjpa.base.entity.BaseEntity;
+import com.cn.springbootjpa.util.DateUtils;
+import com.cn.springbootjpa.util.LoginUserUtil;
 
 public class AuditingEntityListener {
 
