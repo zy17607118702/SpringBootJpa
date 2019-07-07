@@ -56,9 +56,15 @@ public class TmSysRoleApiController extends BaseController<TmSysRole, Integer> {
 	}
 
 	@GetMapping("findroleusers")
-	@ApiOperation(value = "获取角色下用户信息", notes = "根据角色获取角色相应用户")
+	@ApiOperation(value = "获取角色下所有用户信息", notes = "根据角色获取角色相应用户")
 	@ApiImplicitParam(name = "roleCode", value = "角色编号", required = true, dataType = "String")
 	public List<TmSysUser> findRoleUsers(@RequestParam("roleCode") String roleCode){
 		return tmSysUserBo.findRoleUsers(roleCode);
+	}
+	
+	@GetMapping("findusernoroles")
+	@ApiOperation(value = "获取没有当前角色的用户", notes = "获取当前所有未锁定 启用未包含当前角色的用户")
+	public List<TmSysUser> findUserNoRoles(@RequestParam("roleCode") String roleCode){
+		return tmSysUserBo.findUserNoRoles(roleCode);
 	}
 }

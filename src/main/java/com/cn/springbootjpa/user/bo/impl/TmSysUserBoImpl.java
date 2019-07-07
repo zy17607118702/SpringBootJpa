@@ -144,4 +144,13 @@ public class TmSysUserBoImpl extends BaseBoImpl<TmSysUser, Integer> implements T
 		return dao.findRoleUsers(roleCode);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.cn.springbootjpa.user.bo.TmSysUserBo#findUserNoRoles(java.lang.String)
+	 */
+	@Override
+	public List<TmSysUser> findUserNoRoles(String roleCode) {
+		// TODO Auto-generated method stub
+		return dao.findUserNoRoles(roleCode);
+	}
+
 }

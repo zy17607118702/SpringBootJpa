@@ -54,4 +54,10 @@ public interface TmSysUserBo  extends BaseBo<TmSysUser, Integer>{
 	 * @return
 	 */
 	public List<TmSysUser> findRoleUsers(String roleCode);
+	/**
+	 * 获取不具有当前角色信息的用户
+	 * @param roleCode
+	 * @return
+	 */
+	public List<TmSysUser> findUserNoRoles(String roleCode);
 }
