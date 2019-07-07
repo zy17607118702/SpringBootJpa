@@ -89,6 +89,11 @@ public class LogicCondition implements ICondition {
 	public Specification<Object> c2s() {
 		Specification<Object> result = new Specification<Object>() {
 
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public Predicate toPredicate(Root<Object> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
 				Predicate[] restrictions = new Predicate[cons.size()];

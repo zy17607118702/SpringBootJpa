@@ -71,9 +71,15 @@ public class ComparableCondition<T extends Comparable<? super T>> implements ICo
 		return f + opt + getValueStr(v);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Specification<T> c2s() {
 		Specification<T> result = new Specification<T>() {
+
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
 
 			@Override
 			public Predicate toPredicate(Root<T> root, CriteriaQuery<?> query, CriteriaBuilder cb) {

@@ -99,9 +99,15 @@ public class SingleCondition<T> implements ICondition {
 		return f + " " + exStr + " " + getValueStr(value);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Specification<T> c2s() {
 		Specification<T> result = new Specification<T>() {
+
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
 
 			@Override
 			public Predicate toPredicate(Root<T> root, CriteriaQuery<?> query, CriteriaBuilder cb) {

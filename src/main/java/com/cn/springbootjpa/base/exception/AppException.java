@@ -94,6 +94,7 @@ public class AppException extends RuntimeException {
 	 * 
 	 * @return exception list
 	 */
+	@SuppressWarnings("rawtypes")
 	public Collection getCollection() {
 		return exceptions;
 	}

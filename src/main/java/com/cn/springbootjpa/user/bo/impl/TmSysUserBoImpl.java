@@ -6,13 +6,11 @@ package com.cn.springbootjpa.user.bo.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Resource;
-
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cn.springbootjpa.base.bo.BaseBoImpl;
@@ -55,6 +53,7 @@ public class TmSysUserBoImpl extends BaseBoImpl<TmSysUser, Integer> implements T
 	}
 
 	@Override
+	@Transactional(propagation=Propagation.REQUIRES_NEW,timeout=7200)
 	public ImportResult<String> importVo(List<TmSysUserVo> list, boolean isUpdate) {
 		List<String> tipsList = new ArrayList<>();
 		long total = list.size();
@@ -74,7 +73,6 @@ public class TmSysUserBoImpl extends BaseBoImpl<TmSysUser, Integer> implements T
 				tipsList.add(tips + "导入成功！");
 			}
 		}
-//		insertList.addAll(updateList);
 		// 将所有数据保存到数据库中
 		this.save(insertList);
 		this.save(updateList);
@@ -139,6 +137,11 @@ public class TmSysUserBoImpl extends BaseBoImpl<TmSysUser, Integer> implements T
 			vo.setMessages("当前用户已存在,不能导入");
 			return vo;
 		}
+	}
+
+	@Override
+	public List<TmSysUser> findRoleUsers(String roleCode) {
+		return dao.findRoleUsers(roleCode);
 	}
 
 }

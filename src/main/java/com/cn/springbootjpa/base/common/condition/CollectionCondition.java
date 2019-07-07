@@ -50,9 +50,15 @@ public class CollectionCondition<T> implements ICondition {
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Specification<T> c2s() {
 		Specification<T> result = new Specification<T>() {
+
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
 
 			@Override
 			public Predicate toPredicate(Root<T> root, CriteriaQuery<?> query, CriteriaBuilder cb) {

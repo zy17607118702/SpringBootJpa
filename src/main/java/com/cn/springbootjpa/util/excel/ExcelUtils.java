@@ -74,6 +74,7 @@ public class ExcelUtils {
 	 * @param value
 	 *            值
 	 */
+	@SuppressWarnings("deprecation")
 	public static void addCellDoubleValue(Sheet sheet, int row, int colomn, Double value) {
 		if (sheet.getRow(row) == null) {
 			sheet.createRow(row);
@@ -103,6 +104,7 @@ public class ExcelUtils {
 	 * @param showZero
 	 *            是否显示为零
 	 */
+	@SuppressWarnings("deprecation")
 	public static void addCellDoubleValue(Sheet sheet, int row, int colomn, String value, CellStyle style,
 			boolean showZero) {
 		if (sheet.getRow(row) == null) {
@@ -255,6 +257,7 @@ public class ExcelUtils {
 	 * @param style
 	 *            样式
 	 */
+	@SuppressWarnings("deprecation")
 	public static void addFunction(Sheet sheet, int row, int colomn, String functionStr, CellStyle style) {
 		if (org.apache.commons.lang3.StringUtils.isBlank(functionStr)) {
 			return;
@@ -305,6 +308,7 @@ public class ExcelUtils {
 	 * @author lvbingbing
 	 * @serialData 2013-3-19
 	 */
+	@SuppressWarnings("deprecation")
 	public static void copyRow(Sheet sheet, int sourceRow, int lastCellNum) {
 		// 初期化
 		Row rowFrom = null;
@@ -353,6 +357,7 @@ public class ExcelUtils {
 	 *            目标sheet页
 	 * @return Sheet 复制后的sheet页
 	 */
+	@SuppressWarnings("deprecation")
 	public static Sheet copySheet2003(Sheet sheetFrom, Sheet sheetTo) {
 		// 初期化
 		CellRangeAddress region = null;
@@ -406,6 +411,7 @@ public class ExcelUtils {
 	 *            目标sheet页
 	 * @return Sheet 复制后的sheet页
 	 */
+	@SuppressWarnings("deprecation")
 	public static Sheet copySheet2007(Sheet sheetFrom, Sheet sheetTo) {
 		// 初期化
 		CellRangeAddress region = null;
@@ -479,6 +485,7 @@ public class ExcelUtils {
 	 * @param rows
 	 *            行数
 	 */
+	@SuppressWarnings("deprecation")
 	public static void insertRows(Sheet sheet, int startRow, int rows) {
 		sheet.shiftRows(startRow, sheet.getLastRowNum(), rows, true, false);
 
@@ -511,6 +518,7 @@ public class ExcelUtils {
 	 *            数据
 	 * @return String单元格数据
 	 */
+	@SuppressWarnings("deprecation")
 	public static String getString(HSSFCell cell) {
 
 		if (cell == null) {
@@ -572,6 +580,7 @@ public class ExcelUtils {
 	 *            Excel数据
 	 * @return Excel数据
 	 */
+	@SuppressWarnings("deprecation")
 	public static double getDouble(HSSFCell cell) {
 		if (cell == null) {
 			return 0d;
