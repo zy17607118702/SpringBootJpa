@@ -1,5 +1,7 @@
 package com.cn.springbootjpa.config.security;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -46,28 +48,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		   //csrf攻击//
-	       http.cors().and().csrf().disable()
-           .authorizeRequests()
-           //放行swagger2相关资源
-           .antMatchers("/*.html").permitAll()
-           .antMatchers("/*.js").permitAll()
-           .antMatchers("/webjars/**").permitAll()
-           .antMatchers("/swagger-resources/**").permitAll()
-           .antMatchers("/**/api-docs/**").permitAll()
-           //对于登陆和密码修改两个请求以及异常请求放行 
-           .antMatchers(config.getUrl()).permitAll()
-           .antMatchers("/error").permitAll()
-           .antMatchers("/user/updatepwdByUsername").permitAll()
-           //其他请求都匹配权限 securityCheck.check方法
-           .antMatchers("/**").access("@securityCheck.check(authentication,request)")
-           .anyRequest().authenticated()
-           .and()
-           //token过滤器
-           .addFilter(new JWTAuthenticationFilter(authenticationManager()))
-           .addFilter(new JWTAuthorizationFilter(authenticationManager()))
-           // 不需要session
-           .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+		// @formatter:off
+		http.headers().frameOptions().sameOrigin().and().csrf().disable().logout().disable().formLogin().disable()
+				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().anonymous().and()
+				.exceptionHandling().authenticationEntryPoint((req, rsp, e) -> {
+					rsp.sendError(HttpServletResponse.SC_UNAUTHORIZED, e.getLocalizedMessage());
+				}).and()
+				// token过滤器
+				.addFilter(new JWTAuthenticationFilter(authenticationManager()))
+				.addFilter(new JWTAuthorizationFilter(authenticationManager())).authorizeRequests()
+				.antMatchers("/static/**").permitAll()
+				// 放行swagger2相关资源	
+				.antMatchers("/*.html").permitAll().antMatchers("/*.js").permitAll().antMatchers("/webjars/**")
+				.permitAll().antMatchers("/swagger-resources/**").permitAll().antMatchers("/**/api-docs/**").permitAll()
+				// 对于登陆和密码修改两个请求以及异常请求放行
+				.antMatchers(config.getUrl()).permitAll().antMatchers("/error").permitAll()
+				.antMatchers("/user/updatepwdByUsername").permitAll()
+				// 其他请求都匹配权限 securityCheck.check方法
+				.antMatchers("/**").access("@securityCheck.check(authentication,request)").anyRequest().authenticated();
 
 	}
 
@@ -82,10 +80,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	public JwtAuthenticationConfig jwtConfig() {
 		return new JwtAuthenticationConfig();
 	}
-	
-    @Bean
-    public SecurityCheck securityCheck() {
-        return new SecurityCheck();
-    }
+
+	@Bean
+	public SecurityCheck securityCheck() {
+		return new SecurityCheck();
+	}
 
 }
