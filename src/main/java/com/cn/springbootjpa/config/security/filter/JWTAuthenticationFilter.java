@@ -6,6 +6,7 @@ import java.util.Collection;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -16,6 +17,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import com.cn.springbootjpa.config.security.model.JwtToken;
 import com.cn.springbootjpa.config.security.model.JwtUser;
 import com.cn.springbootjpa.config.security.model.LoginUser;
 import com.cn.springbootjpa.config.security.utils.JwtTokenUtils;
@@ -28,8 +30,10 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     private ThreadLocal<Integer> rememberMe = new ThreadLocal<>();
     private AuthenticationManager authenticationManager;
+    private final ObjectMapper mapper;
 
     public JWTAuthenticationFilter(AuthenticationManager authenticationManager) {
+    	this.mapper = new ObjectMapper();
         this.authenticationManager = authenticationManager;
     }
 
@@ -57,9 +61,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                             HttpServletResponse response,
                                             FilterChain chain,
                                             Authentication authResult) throws IOException, ServletException {
-
         JwtUser jwtUser = (JwtUser) authResult.getPrincipal();
-        System.out.println("jwtUser:" + jwtUser.toString());
         boolean isRemember = rememberMe.get()!=null? rememberMe.get()== 1:false;
 
         String role = "";
@@ -69,12 +71,19 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         }
 
         String token = JwtTokenUtils.createToken(jwtUser.getUsername(), role, isRemember);
-//        String token = JwtTokenUtils.createToken(jwtUser.getUsername(), false);
         // 返回创建成功的token
         // 但是这里创建的token只是单纯的token
         // 按照jwt的规定，最后请求的时候应该是 `Bearer token`
         response.setHeader("token", JwtTokenUtils.TOKEN_PREFIX + token);
+        System.out.println("token="+token);
         response.addHeader("Content-Type", "application/json");
+        try {
+            ServletOutputStream os = response.getOutputStream();
+            mapper.writeValue(os, new JwtToken(jwtUser.getUsername(), token));
+            os.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

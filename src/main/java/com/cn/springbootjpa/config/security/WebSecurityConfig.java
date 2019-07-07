@@ -49,7 +49,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		// @formatter:off
-		http.headers().frameOptions().sameOrigin().and().csrf().disable().logout().disable().formLogin().disable()
+		http.cors().and().headers().frameOptions().sameOrigin().and().csrf().disable().logout().disable().formLogin().disable()
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().anonymous().and()
 				.exceptionHandling().authenticationEntryPoint((req, rsp, e) -> {
 					rsp.sendError(HttpServletResponse.SC_UNAUTHORIZED, e.getLocalizedMessage());
@@ -57,7 +57,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				// token过滤器
 				.addFilter(new JWTAuthenticationFilter(authenticationManager()))
 				.addFilter(new JWTAuthorizationFilter(authenticationManager())).authorizeRequests()
-				.antMatchers("/static/**").permitAll()
+				.antMatchers("/**/static/**").permitAll()
 				// 放行swagger2相关资源	
 				.antMatchers("/*.html").permitAll().antMatchers("/*.js").permitAll().antMatchers("/webjars/**")
 				.permitAll().antMatchers("/swagger-resources/**").permitAll().antMatchers("/**/api-docs/**").permitAll()
