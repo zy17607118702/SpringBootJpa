@@ -26,6 +26,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @Entity
 @Table(name = "tm_bas_part",uniqueConstraints=@UniqueConstraint(columnNames="part_no"))
+@org.hibernate.annotations.Table(appliesTo = "tm_bas_part",comment="零部件信息表")
 @EqualsAndHashCode(callSuper = true)
 public class TmBasPart extends BaseEntity {
 	
@@ -35,24 +36,22 @@ public class TmBasPart extends BaseEntity {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "tm_bas_part_id", unique = true, nullable = false, precision = 11, scale = 0)
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "tm_bas_part_id",columnDefinition = "bigint(11) comment 'id'", unique = true, nullable = false)
 	private Integer id;
 	
-	@Column(name = "part_no", length = 20)
+	@Column(name = "part_no",columnDefinition = "varchar(20) comment '零件编号'", nullable = false)
 	private String partNo;
 	
-	@Column(name = "part_name_c", length = 50)
+	@Column(name = "part_name_c",columnDefinition = "varchar(50) comment '零件中文名'", nullable = false)
 	private String partNameC;
 	
-	@Column(name = "part_name_e", length = 50)
+	@Column(name = "part_name_e",columnDefinition = "varchar(50) comment '零件英文名'")
 	private String partNameE;
 	
-	@Column(name = "part_type",precision=5,scale=0)
+	@Column(name = "part_type",columnDefinition = "int(50) comment '零件类型'", nullable = false)
 	private Integer partType;
 	
-	@Column(name="mark_status",length=1,nullable=false)
-	private Boolean markStatus;
 	/**
 	 * 一对多注解 @onetoMany
 	 * cascade 类似于hibernate 级联 fetch 类似于懒加载

@@ -23,6 +23,7 @@ public interface TmSysUserDao extends BaseDao<TmSysUser, Integer> {
 	public void updatePwd(@Param("username") String username, @Param("pwd") String pwd);
 
 	@Query(value="select u.* from tm_sys_user u left join tr_sys_user_role ur on u.tm_sys_user_id=ur.tm_sys_user_id "
-			+ "left join tm_sys_role r on ur.tm_sys_role_id=r.tm_sys_role_id " + "where r.role_code =:roleCode" ,nativeQuery=true)
+			+ "left join tm_sys_role r on ur.tm_sys_role_id=r.tm_sys_role_id " + "where r.role_code =:roleCode "+
+			"and 1=1",nativeQuery=true)
 	public List<TmSysUser> findRoleUsers(@Param("roleCode") String roleCode);
 }

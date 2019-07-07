@@ -9,7 +9,9 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.cn.springbootjpa.base.bo.BaseBo;
 import com.cn.springbootjpa.base.controller.BaseController;
@@ -18,6 +20,7 @@ import com.cn.springbootjpa.user.bo.TmSysUserBo;
 import com.cn.springbootjpa.user.entity.TmSysRole;
 import com.cn.springbootjpa.user.entity.TmSysUser;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 
@@ -27,6 +30,9 @@ import io.swagger.annotations.ApiOperation;
  * @author zhangyang
  *
  */
+@Api(value = "角色 主数据增删改查", description = "详细描述")
+@RestController
+@RequestMapping(value = "role")
 public class TmSysRoleApiController extends BaseController<TmSysRole, Integer> {
 	@Autowired
 	private TmSysRoleBo tmSysRoleBo;

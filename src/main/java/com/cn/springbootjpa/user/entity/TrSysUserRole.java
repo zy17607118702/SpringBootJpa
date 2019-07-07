@@ -21,6 +21,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @Entity
 @Table(name = "tr_sys_user_role")
+@org.hibernate.annotations.Table(appliesTo = "tr_sys_user_role", comment = "用户角色关系表")
 @Cacheable
 @org.hibernate.annotations.Cache(usage=CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @EqualsAndHashCode(callSuper = true)
@@ -40,24 +41,21 @@ public class TrSysUserRole extends BaseEntity {
 	public static final String FIELD_MARKSTATUS = "markStatus";
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "tr_sys_user_role_id", unique = true, nullable = false, precision = 11, scale = 0)
+	@Column(name = "tr_sys_user_role_id",columnDefinition = "bigint(11) comment 'id'", unique = true, nullable = false)
 	private Integer id;
 
-	@Column(name="tm_sys_user_id",precision=11,scale=0, nullable = false)
+	@Column(name="tm_sys_user_id",columnDefinition = "bigint(11) comment '用户id'", nullable = false)
 	private Integer tmSysUserId;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="tm_sys_user_id",insertable=false,updatable=false)
 	private TmSysUser tmSysUser;
 
-	@Column(name="tm_sys_role_id",precision=11,scale=0, nullable = false)
+	@Column(name="tm_sys_role_id",columnDefinition = "bigint(11) comment '角色id'", nullable = false)
 	private Integer  tmSysRoleId;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="tm_sys_role_id",insertable=false,updatable=false)
 	private TmSysRole tmSysRole;
 	
-	@Column(name="mark_status",length=1,nullable=false)
-	private Boolean markStatus;
-
 }

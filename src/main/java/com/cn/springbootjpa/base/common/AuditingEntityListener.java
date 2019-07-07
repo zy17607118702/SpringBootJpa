@@ -6,7 +6,6 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 
 import com.cn.springbootjpa.base.entity.BaseEntity;
-import com.cn.springbootjpa.util.DateUtils;
 import com.cn.springbootjpa.util.LoginUserUtil;
 
 public class AuditingEntityListener {
@@ -14,20 +13,18 @@ public class AuditingEntityListener {
 @PrePersist
 public void preSave(BaseEntity entity) {
 String username = LoginUserUtil.getLoginUser();
-Date date = DateUtils.getCurrentDate();
 entity.setCreateBy(username);
-entity.setCreateTime(date);
+entity.setCreateTime(new Date());
 entity.setUpdateBy(username);
-entity.setUpdateTime(date);
+entity.setUpdateTime(new Date());
 }
 
 @PreUpdate
 public void preUpdate(BaseEntity entity) {
 String username = LoginUserUtil.getLoginUser();
-Date date = DateUtils.getCurrentDate();
 entity.setCreateBy(entity.getCreateBy());
 entity.setCreateTime(entity.getCreateTime());
 entity.setUpdateBy(username);
-entity.setUpdateTime(date);
+entity.setUpdateTime(new Date());
 }
 }

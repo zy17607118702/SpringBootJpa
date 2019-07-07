@@ -46,8 +46,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+		   //csrf攻击//
 	       http.cors().and().csrf().disable()
            .authorizeRequests()
+           //放行swagger2相关资源
+           .antMatchers("/*.html").permitAll()
+           .antMatchers("/*.js").permitAll()
+           .antMatchers("/webjars/**").permitAll()
+           .antMatchers("/swagger-resources/**").permitAll()
+           .antMatchers("/**/api-docs/**").permitAll()
            //对于登陆和密码修改两个请求以及异常请求放行 
            .antMatchers(config.getUrl()).permitAll()
            .antMatchers("/error").permitAll()

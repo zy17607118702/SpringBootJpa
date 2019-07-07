@@ -27,6 +27,7 @@ import lombok.EqualsAndHashCode;
 @Cacheable
 @org.hibernate.annotations.Cache(usage=CacheConcurrencyStrategy.NONSTRICT_READ_WRITE,region="RoleCache")
 @Table(name = "tm_sys_role", uniqueConstraints = @UniqueConstraint(columnNames = "role_code"))
+@org.hibernate.annotations.Table(appliesTo = "tm_sys_role",comment="角色信息表")
 @EqualsAndHashCode(callSuper = true)
 public class TmSysRole extends BaseEntity {
 
@@ -42,17 +43,14 @@ public class TmSysRole extends BaseEntity {
 	public static final String FIELD_MARKSTATUS = "markStatus";
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "tm_sys_role_id", unique = true, nullable = false, precision = 11, scale = 0)
+	@Column(name = "tm_sys_role_id",columnDefinition = "bigint(11) comment 'id'", unique = true, nullable = false)
 	private Integer id;
 
-	@Column(name = "role_code", length = 30, unique = true)
+	@Column(name = "role_code", columnDefinition = "varchar(50) comment '角色编码'", unique = true, nullable = false)
 	private String roleCode;
 
-	@Column(name = "role_name", length = 50)
+	@Column(name = "role_name",columnDefinition = "varchar(50) comment '角色名'")
 	private String roleName;
-
-	@Column(name = "mark_status", length = 1, nullable = false)
-	private Boolean markStatus;
 
 	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "tmSysRole")

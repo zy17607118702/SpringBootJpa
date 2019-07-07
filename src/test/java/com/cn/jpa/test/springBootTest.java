@@ -21,7 +21,7 @@ public class springBootTest {
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	@Test
 	public void changePwd() {
-		TmSysUser user = tmSysUserBo.findByUsername("smcet");
+		TmSysUser user = tmSysUserBo.findByUsername("admin");
 		String encode = bCryptPasswordEncoder.encode("123");
 		tmSysUserBo.updatePwd(user.getUserName(), encode);
 	}

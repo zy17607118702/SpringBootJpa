@@ -22,6 +22,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @Entity
 @Table(name = "tm_sys_resource", uniqueConstraints = @UniqueConstraint(columnNames = { "res_type", "res_name_c" }))
+@org.hibernate.annotations.Table(appliesTo = "tm_sys_resource",comment="资源信息表")
 @EqualsAndHashCode(callSuper = true)
 public class TmSysResource extends BaseEntity {
 
@@ -42,30 +43,27 @@ public class TmSysResource extends BaseEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "tm_sys_resource_id", unique = true, nullable = false, precision = 11, scale = 0)
+	@Column(name = "tm_sys_resource_id",columnDefinition = "bigint(11) comment 'id'", unique = true, nullable = false)
 	private Integer id;
 
 	// 上级菜单
-	@Column(name = "parent_res_id", length = 11, nullable = false)
+	@Column(name = "parent_res_id",columnDefinition = "bigint(11) comment '上级菜单id'", nullable = false)
 	private Integer parentResid;
 
-	@Column(name = "res_type", length = 20)
+	@Column(name = "res_type",columnDefinition = "varchar(20) comment '菜单类型'")
 	private String resType;
 
-	@Column(name = "res_name_c", length = 50)
+	@Column(name = "res_name_c",columnDefinition = "varchar(50) comment '菜单中文名'", nullable = false)
 	private String resNameC;
 
-	@Column(name = "res_name_e", length = 50)
+	@Column(name = "res_name_e",columnDefinition = "varchar(50) comment '菜单英文名'", nullable = false)
 	private String resNameE;
 
-	@Column(name = "res_path", length = 50)
+	@Column(name = "res_path",columnDefinition = "varchar(50) comment '菜单路径'")
 	private String resPath;
 
-	@Column(name = "res_level", precision = 5, scale = 0)
+	@Column(name = "res_level",columnDefinition = "int(5) comment '菜单等级'")
 	private Integer resLevel;
-
-	@Column(name = "mark_status", length = 1, nullable = false)
-	private Boolean markStatus;
 
 	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "tmSysResource")

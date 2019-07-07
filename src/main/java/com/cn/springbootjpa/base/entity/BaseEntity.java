@@ -49,6 +49,9 @@ public abstract class BaseEntity extends Entity  implements Serializable{
 	@Column(name="update_by",length=50)
     private String updateBy;
     
+	@Column(name = "mark_status", columnDefinition = "bit(1) comment '启用'")
+	private Boolean markStatus;
+
 
    
 }
