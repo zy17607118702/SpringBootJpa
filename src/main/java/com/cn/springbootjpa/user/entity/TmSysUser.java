@@ -49,7 +49,7 @@ public class TmSysUser extends BaseEntity {
 	public static final String FIELD_MARKSTATUS = "markStatus";
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "tm_sys_user_id", columnDefinition = "bigint(11) comment 'id'", unique = true, nullable = false)
 	private Integer id;
 

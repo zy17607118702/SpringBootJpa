@@ -40,7 +40,7 @@ public class TrSysUserRole extends BaseEntity {
 	public static final String FIELD_TMSYSROLE = "tmSysRole";
 	public static final String FIELD_MARKSTATUS = "markStatus";
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "tr_sys_user_role_id",columnDefinition = "bigint(11) comment 'id'", unique = true, nullable = false)
 	private Integer id;
 

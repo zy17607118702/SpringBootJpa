@@ -36,7 +36,7 @@ public class TmBasPart extends BaseEntity {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "tm_bas_part_id",columnDefinition = "bigint(11) comment 'id'", unique = true, nullable = false)
 	private Integer id;
 	
