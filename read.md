@@ -1,4 +1,4 @@
-#项目中需要的问题总结
+#项目中发现的问题总结
 1.mysql数据库字符集问题
  1.1my.ini配置
     # For advice on how to change settings please see
@@ -34,7 +34,7 @@
 	read_rnd_buffer_size = 16M 
 	default-storage-engine=InnoDB
 	#sql_mode=NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES
-1.2两台电脑上安装的mysql 一台能依靠my.ini配置 一台不能配置
+ 1.2两台电脑上安装的mysql 一台能依靠my.ini配置 一台不能配置
 	解决方法 
 	1.停止mysql服务 
 	  net stop mysql

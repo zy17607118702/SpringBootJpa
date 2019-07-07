@@ -9,6 +9,11 @@ spring:
     active: localhost
   aop:
      proxy-target-class: false
+  jackson:
+    serialization.INDENT_OUTPUT: true
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: Asia/Shanghai
+    joda-date-time-format: yyyy-MM-dd HH:mm:ss
   session:
     store-type: redis
   cache:

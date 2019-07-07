@@ -106,7 +106,7 @@ public class TmSysUserBoImpl extends BaseBoImpl<TmSysUser, Integer> implements T
 			user.setUserPwd(bCryptPasswordEncoder.encode(vo.getUserPwd()));
 			user.setRealName(vo.getRealName());
 			user.setRealName(vo.getRealName());
-			user.setSex("男".equals(vo.getSex()) ? "1" : "0");
+			user.setSex("男".equals(vo.getSex()) ? "男" : "女");
 			user.setAge(Integer.parseInt(vo.getAge()));
 			user.setEmail(vo.getEmail());
 			user.setPhone(vo.getPhone());
@@ -123,7 +123,7 @@ public class TmSysUserBoImpl extends BaseBoImpl<TmSysUser, Integer> implements T
 			result.setUserPwd(bCryptPasswordEncoder.encode(vo.getUserPwd()));
 			result.setRealName(vo.getRealName());
 			result.setRealName(vo.getRealName());
-			result.setSex("男".equals(vo.getSex()) ? "1" : "0");
+			result.setSex("男".equals(vo.getSex()) ? "男" : "女");
 			result.setAge(Integer.parseInt(vo.getAge()));
 			result.setEmail(vo.getEmail());
 			result.setPhone(vo.getPhone());
