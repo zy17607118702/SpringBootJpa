@@ -18,13 +18,13 @@ VALUES
 	);
 INSERT INTO `tm_sys_role`
 VALUES
-	( 1, '00000', NOW(),, '1', '00000', NOW(),, '1', 'admin' );
+	( 1, '00000', NOW(), '1', '00000', NOW(), '1', 'admin' );
 INSERT INTO `tm_sys_resource`
 VALUES
-	( 1, '00000', NOW(),, '1', '00000', NOW(),, 0, 1, '用户信息', 'user', '/api/user', 'url' );
+	( 1, '00000', NOW(), '1', '00000', NOW(), 0, 1, '用户信息', 'user', '/api/user', 'url' );
 INSERT INTO `tr_sys_role_resource`
 VALUES
-	( 1, '00000', NOW(),, '1', '00000', NOW(),, 1, 1 );
+	( 1, '00000', NOW(), '1', '00000', NOW(), 1, 1 );
 INSERT INTO `tr_sys_user_role`
 VALUES
 	( 1, '00000', NOW(), '1', '00000', NOW(), 1, 1 );

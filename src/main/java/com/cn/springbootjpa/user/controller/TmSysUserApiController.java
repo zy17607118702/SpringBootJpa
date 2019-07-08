@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.domain.Page;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,6 +36,7 @@ import com.cn.springbootjpa.user.bo.TmSysUserBo;
 import com.cn.springbootjpa.user.entity.TmSysUser;
 import com.cn.springbootjpa.user.importvo.TmSysUserVo;
 import com.cn.springbootjpa.util.DateUtils;
+import com.cn.springbootjpa.util.LoginUserUtil;
 import com.cn.springbootjpa.util.excel.JxlsExcelView;
 import com.cn.springbootjpa.util.excel.JxlsReader;
 
@@ -145,5 +147,21 @@ public class TmSysUserApiController extends BaseController<TmSysUser, Integer> {
 		map.put("data", data != null ? data : null);
 		String ymd = DateUtils.format(new Date(), DateUtils.FORMAT_DATE_YYYY_MM_DD_HHMMSS);
 		return new ModelAndView(new JxlsExcelView("/templates/user/user_export.xlsx", "user_" + ymd), map);
+	}
+	
+	@ApiOperation(value = "用户信息", notes = "获取登陆用户信息")
+	@GetMapping("/info")
+	public TmSysUser findByUserName() {
+		TmSysUser tmSysUser=null;
+		try {
+			String username=LoginUserUtil.getLoginUser();
+			tmSysUser= tmSysUserBo.findByUsername(username);
+			if(tmSysUser==null) {
+				throw new ApplicationException("AE0001",username);
+			}
+		} catch (Exception e) {
+			throw new AppException(e.getLocalizedMessage());
+		}
+		return tmSysUser;
 	}
 }

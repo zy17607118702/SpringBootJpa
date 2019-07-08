@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,8 +15,11 @@ import com.cn.springbootjpa.base.bo.BaseBo;
 import com.cn.springbootjpa.base.controller.BaseController;
 import com.cn.springbootjpa.user.bo.TmSysResourceBo;
 import com.cn.springbootjpa.user.entity.TmSysResource;
+import com.cn.springbootjpa.user.vo.Resource;
+import com.cn.springbootjpa.util.LoginUserUtil;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 /**
  * 角色页面增删改查
@@ -47,4 +51,12 @@ public class TmSysResourceApiController extends BaseController<TmSysResource, In
 		return result;
 	}
 
+	
+	@GetMapping("/web/resources")
+	@ApiOperation(value = "web菜单", notes = "获取用户对应权限的web菜单")
+	public Resource getWebResourceList() {
+		//String username=LoginUserUtil.getLoginUser();
+		
+		return null;
+	}
 }
