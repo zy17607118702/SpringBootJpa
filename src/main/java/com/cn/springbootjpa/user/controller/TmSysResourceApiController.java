@@ -4,6 +4,7 @@
 package com.cn.springbootjpa.user.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cn.springbootjpa.base.bo.BaseBo;
+import com.cn.springbootjpa.base.common.code.CodeNameItem;
 import com.cn.springbootjpa.base.controller.BaseController;
 import com.cn.springbootjpa.user.bo.TmSysResourceBo;
 import com.cn.springbootjpa.user.entity.TmSysResource;
 import com.cn.springbootjpa.user.vo.Resource;
-import com.cn.springbootjpa.util.LoginUserUtil;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -51,6 +52,13 @@ public class TmSysResourceApiController extends BaseController<TmSysResource, In
 		return result;
 	}
 
+	/**
+	 *所有菜单类型下拉框
+	 * @return
+	 */
+	public List<CodeNameItem> getResourceTypes(){
+		return null;
+	}
 	
 	@GetMapping("/web/resources")
 	@ApiOperation(value = "web菜单", notes = "获取用户对应权限的web菜单")

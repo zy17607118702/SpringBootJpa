@@ -25,6 +25,8 @@ public class CodeNameItem implements IdentityObject {
 
 	private static final long serialVersionUID = -6477134999088399608L;
 
+	@SuppressWarnings("unused")
+	private static final String String=null;
 	/**
 	 * Build a CodeNameItem instance from an object with given mapping properties.
 	 * 
