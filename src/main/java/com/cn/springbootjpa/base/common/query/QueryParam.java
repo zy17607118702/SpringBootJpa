@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.cn.springbootjpa.base.common;
+package com.cn.springbootjpa.base.common.query;
 
 import java.io.Serializable;
 import java.util.HashMap;

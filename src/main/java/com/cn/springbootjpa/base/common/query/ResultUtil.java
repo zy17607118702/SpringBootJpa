@@ -1,4 +1,4 @@
-package com.cn.springbootjpa.base.common;
+package com.cn.springbootjpa.base.common.query;
 
 /**
  * 进行web结果的包装方法

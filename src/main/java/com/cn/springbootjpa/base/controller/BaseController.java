@@ -27,12 +27,12 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.cn.springbootjpa.base.bo.BaseBo;
-import com.cn.springbootjpa.base.common.QueryParam;
-import com.cn.springbootjpa.base.common.Result;
-import com.cn.springbootjpa.base.common.ResultUtil;
 import com.cn.springbootjpa.base.common.page.PageReq;
 import com.cn.springbootjpa.base.common.page.PageRes;
 import com.cn.springbootjpa.base.common.page.QueryCondition;
+import com.cn.springbootjpa.base.common.query.QueryParam;
+import com.cn.springbootjpa.base.common.query.Result;
+import com.cn.springbootjpa.base.common.query.ResultUtil;
 import com.cn.springbootjpa.base.entity.BaseEntity;
 import com.cn.springbootjpa.base.exception.AppException;
 import com.cn.springbootjpa.base.exception.ApplicationException;

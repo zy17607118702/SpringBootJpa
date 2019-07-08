@@ -1,4 +1,4 @@
-package com.cn.springbootjpa.base.common;
+package com.cn.springbootjpa.base.common.code;
 
 /**
  * 常量code和编码对应关系类

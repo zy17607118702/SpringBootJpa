@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cn.springbootjpa.base.bo.BaseBoImpl;
-import com.cn.springbootjpa.base.common.ImportResult;
+import com.cn.springbootjpa.base.common.query.ImportResult;
 import com.cn.springbootjpa.base.dao.BaseDao;
 import com.cn.springbootjpa.user.bo.TmSysUserBo;
 import com.cn.springbootjpa.user.dao.TmSysUserDao;

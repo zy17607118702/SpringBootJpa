@@ -19,7 +19,7 @@
  * restricted by GSA ADP Schedule Contract with IBM Corp.
  *
  ******************************************************************************/
-package com.cn.springbootjpa.base.common;
+package com.cn.springbootjpa.base.common.query;
 
 import java.util.ArrayList;
 import java.util.List;

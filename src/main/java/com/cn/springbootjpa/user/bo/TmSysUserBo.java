@@ -9,7 +9,7 @@ import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 
 import com.cn.springbootjpa.base.bo.BaseBo;
-import com.cn.springbootjpa.base.common.ImportResult;
+import com.cn.springbootjpa.base.common.query.ImportResult;
 import com.cn.springbootjpa.user.entity.TmSysUser;
 import com.cn.springbootjpa.user.importvo.TmSysUserVo;
 

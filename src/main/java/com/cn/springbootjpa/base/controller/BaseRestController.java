@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cn.springbootjpa.base.common.Result;
-import com.cn.springbootjpa.base.common.ResultUtil;
+import com.cn.springbootjpa.base.common.query.Result;
+import com.cn.springbootjpa.base.common.query.ResultUtil;
 import com.cn.springbootjpa.base.exception.ApplicationException;
 import com.cn.springbootjpa.base.exception.SystemException;
 

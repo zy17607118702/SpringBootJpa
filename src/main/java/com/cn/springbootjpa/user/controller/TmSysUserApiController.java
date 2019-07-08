@@ -24,11 +24,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.cn.springbootjpa.base.bo.BaseBo;
-import com.cn.springbootjpa.base.common.CodeTypeConstants;
-import com.cn.springbootjpa.base.common.ImportResult;
-import com.cn.springbootjpa.base.common.QueryParam;
+import com.cn.springbootjpa.base.common.code.CodeTypeConstants;
 import com.cn.springbootjpa.base.common.page.PageReq;
 import com.cn.springbootjpa.base.common.page.QueryCondition;
+import com.cn.springbootjpa.base.common.query.ImportResult;
+import com.cn.springbootjpa.base.common.query.QueryParam;
 import com.cn.springbootjpa.base.controller.BaseController;
 import com.cn.springbootjpa.base.exception.AppException;
 import com.cn.springbootjpa.base.exception.ApplicationException;

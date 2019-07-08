@@ -1,4 +1,4 @@
-package com.cn.springbootjpa.base.common;
+package com.cn.springbootjpa.base.common.query;
 
 import lombok.Data;
 

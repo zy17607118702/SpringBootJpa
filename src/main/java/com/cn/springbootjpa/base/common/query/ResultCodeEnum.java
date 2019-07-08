@@ -1,4 +1,4 @@
-package com.cn.springbootjpa.base.common;
+package com.cn.springbootjpa.base.common.query;
 
 /**
  * 统一的返回成功和未知错误定义
