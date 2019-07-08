@@ -47,7 +47,7 @@ public class TmSysResource extends BaseEntity {
 	private Integer id;
 
 	// 上级菜单
-	@Column(name = "parent_res_id",columnDefinition = "bigint(11) comment '上级菜单id'", nullable = false)
+	@Column(name = "parent_res_id",columnDefinition = "bigint(11) comment '上级菜单id'")
 	private Integer parentResid;
 
 	@Column(name = "res_type",columnDefinition = "varchar(20) comment '菜单类型'")
@@ -64,6 +64,9 @@ public class TmSysResource extends BaseEntity {
 
 	@Column(name = "res_level",columnDefinition = "int(5) comment '菜单等级'")
 	private Integer resLevel;
+	//顺序号
+	@Column(name = "seq_no",columnDefinition = "int(10) comment '菜单等级'", nullable = false)
+	private Integer seqNo;
 
 	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "tmSysResource")

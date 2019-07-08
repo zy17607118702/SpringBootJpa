@@ -3,7 +3,10 @@
  */
 package com.cn.springbootjpa.user.bo;
 
+import java.util.List;
+
 import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.data.repository.query.Param;
 
 import com.cn.springbootjpa.base.bo.BaseBo;
 import com.cn.springbootjpa.user.entity.TmSysResource;
@@ -17,4 +20,5 @@ import com.cn.springbootjpa.user.entity.TmSysResource;
 
 @CacheConfig(cacheNames = "tmSysResourceBo")
 public interface TmSysResourceBo extends BaseBo<TmSysResource, Integer> {
+	public List<TmSysResource> findResourceList(String userName,String resType);
 }

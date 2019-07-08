@@ -55,7 +55,7 @@ public class SecurityCheck {
 			return true;
 		}
 		// 某一些请求不需要权限 需要这些不过滤的请求挑选出来
-		String[] urls = new String[] { "/ds/**,/user/info/,/user/fullname,/swagger2**,/resource/web/resources" };
+		String[] urls = new String[] { "/resource/web/resources","/ds/**","/user/info/","/user/fullname","/swagger2**"};
 		for(String url:urls) {
 			AntPathRequestMatcher matcher = new AntPathRequestMatcher(url);
 			if(matcher.matches(request)) {
