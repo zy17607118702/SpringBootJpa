@@ -67,8 +67,10 @@ public class TmSysResource extends BaseEntity {
 	//顺序号
 	@Column(name = "seq_no",columnDefinition = "int(10) comment '菜单等级'", nullable = false)
 	private Integer seqNo;
+	//是否叶节点
+	@Column(name = "is_leaf", columnDefinition = "bit(1) comment '是否叶节点'")
+	private Boolean isLeaf;
 
-	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "tmSysResource")
 	private Set<TrSysRoleResource> trSysRoleResource;
 }

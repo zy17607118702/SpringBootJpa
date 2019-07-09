@@ -9,6 +9,7 @@ import org.springframework.cache.annotation.CacheConfig;
 
 import com.cn.springbootjpa.base.bo.BaseBo;
 import com.cn.springbootjpa.user.entity.TmSysResource;
+import com.cn.springbootjpa.user.vo.Resource;
 
 /**
  * spel表达式只能写在接口上 前端请求的是接口不是实现类
@@ -32,5 +33,5 @@ public interface TmSysResourceBo extends BaseBo<TmSysResource, Integer> {
 	 * @param resources
 	 * @return
 	 */
-	public List<TmSysResource> findAllResources(List<TmSysResource> resources);
+	public List<Resource> findAllResources(List<TmSysResource> resources);
 }

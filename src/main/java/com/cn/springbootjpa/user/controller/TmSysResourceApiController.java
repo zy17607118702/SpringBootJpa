@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cn.springbootjpa.base.bo.BaseBo;
 import com.cn.springbootjpa.base.common.code.CodeNameItem;
-import com.cn.springbootjpa.base.common.code.CodeTypeConstants;
 import com.cn.springbootjpa.base.controller.BaseController;
 import com.cn.springbootjpa.user.bo.TmSysResourceBo;
 import com.cn.springbootjpa.user.entity.TmSysResource;
+import com.cn.springbootjpa.user.vo.Resource;
 import com.cn.springbootjpa.util.LoginUserUtil;
 import com.cn.springbootjpa.util.StringUtil;
 
@@ -70,43 +70,43 @@ public class TmSysResourceApiController extends BaseController<TmSysResource, In
         if (StringUtil.isNullOrBlank(resourceType)) {
             return null;
         }
-        if (CodeTypeConstants.TYPE_RICHCLIENT.equals(resourceType)) {//rcp端
-            items.add(new CodeNameItem(null, null, CodeTypeConstants.TYPE_UI_CATEGORY, "资源分类", null));
-        } else if (CodeTypeConstants.TYPE_UI_CATEGORY.equals(resourceType)) {
-            items.add(new CodeNameItem(null, null, CodeTypeConstants.TYPE_UI_CATEGORY, "资源分类", null));
-            items.add(new CodeNameItem(null, null, CodeTypeConstants.TYPE_UI_VIEW, "视图", null));
-        } else if (CodeTypeConstants.TYPE_UI_VIEW.equals(resourceType)) {
-            items.add(new CodeNameItem(null, null, CodeTypeConstants.TYPE_UI_VIEW, "视图", null));
-            items.add(new CodeNameItem(null, null, CodeTypeConstants.TYPE_UI_ACTION, "Action", null));
-        } else if (CodeTypeConstants.TYPE_UI_ACTION.equals(resourceType)) {
-            items.add(new CodeNameItem(null, null, CodeTypeConstants.TYPE_UI_ACTION, "Action", null));
-        } else if (CodeTypeConstants.TYPE_WEB.equals(resourceType)) {//web端
-            items.add(new CodeNameItem(null, null, CodeTypeConstants.TYPE_WEB_CAT, "Web资源分区", null));
-        } else if (CodeTypeConstants.TYPE_WEB_CAT.equals(resourceType)) {
-            items.add(new CodeNameItem(null, null, CodeTypeConstants.TYPE_WEB_CAT, "Web资源分类", null));
-            items.add(new CodeNameItem(null, null, CodeTypeConstants.TYPE_WEB_FUNCTION, "Web功能模块", null));
-            items.add(new CodeNameItem(null, null, CodeTypeConstants.TYPE_WEB_URL, "Web URL资源", null));
-        } else if (CodeTypeConstants.TYPE_WEB_FUNCTION.equals(resourceType)) {
-            items.add(new CodeNameItem(null, null, CodeTypeConstants.TYPE_WEB_FUNCTION, "Web功能模块", null));
-            items.add(new CodeNameItem(null, null, CodeTypeConstants.TYPE_WEB_URL, "Web URL资源", null));
-        } else if (CodeTypeConstants.TYPE_WEB_URL.equals(resourceType)) {
-            items.add(new CodeNameItem(null, null, CodeTypeConstants.TYPE_WEB_URL, "Web URL资源", null));
-        } else if (CodeTypeConstants.TYPE_DEVICE.equals(resourceType)) {//pad端
-            items.add(new CodeNameItem(null, null, CodeTypeConstants.TYPE_DEVICE_CAT, "Device资源分类", null));
-        } else if (CodeTypeConstants.TYPE_DEVICE_CAT.equals(resourceType)) {
-            items.add(new CodeNameItem(null, null, CodeTypeConstants.TYPE_DEVICE_CAT, "Device资源分类", null));
-            items.add(new CodeNameItem(null, null, CodeTypeConstants.TYPE_DEVICE_VIEW, "Device视图", null));
-        } else if (CodeTypeConstants.TYPE_DEVICE_VIEW.equals(resourceType)) {
-            items.add(new CodeNameItem(null, null, CodeTypeConstants.TYPE_DEVICE_VIEW, "Device视图", null));
+        if (Resource.TYPE_RICHCLIENT.equals(resourceType)) {//rcp端
+            items.add(new CodeNameItem(null, null, Resource.TYPE_UI_CATEGORY, "资源分类", null));
+        } else if (Resource.TYPE_UI_CATEGORY.equals(resourceType)) {
+            items.add(new CodeNameItem(null, null, Resource.TYPE_UI_CATEGORY, "资源分类", null));
+            items.add(new CodeNameItem(null, null, Resource.TYPE_UI_VIEW, "视图", null));
+        } else if (Resource.TYPE_UI_VIEW.equals(resourceType)) {
+            items.add(new CodeNameItem(null, null, Resource.TYPE_UI_VIEW, "视图", null));
+            items.add(new CodeNameItem(null, null, Resource.TYPE_UI_ACTION, "Action", null));
+        } else if (Resource.TYPE_UI_ACTION.equals(resourceType)) {
+            items.add(new CodeNameItem(null, null, Resource.TYPE_UI_ACTION, "Action", null));
+        } else if (Resource.TYPE_WEB.equals(resourceType)) {//web端
+            items.add(new CodeNameItem(null, null, Resource.TYPE_WEB_CAT, "Web资源分区", null));
+        } else if (Resource.TYPE_WEB_CAT.equals(resourceType)) {
+            items.add(new CodeNameItem(null, null, Resource.TYPE_WEB_CAT, "Web资源分类", null));
+            items.add(new CodeNameItem(null, null, Resource.TYPE_WEB_FUNCTION, "Web功能模块", null));
+            items.add(new CodeNameItem(null, null, Resource.TYPE_WEB_URL, "Web URL资源", null));
+        } else if (Resource.TYPE_WEB_FUNCTION.equals(resourceType)) {
+            items.add(new CodeNameItem(null, null, Resource.TYPE_WEB_FUNCTION, "Web功能模块", null));
+            items.add(new CodeNameItem(null, null, Resource.TYPE_WEB_URL, "Web URL资源", null));
+        } else if (Resource.TYPE_WEB_URL.equals(resourceType)) {
+            items.add(new CodeNameItem(null, null, Resource.TYPE_WEB_URL, "Web URL资源", null));
+        } else if (Resource.TYPE_DEVICE.equals(resourceType)) {//pad端
+            items.add(new CodeNameItem(null, null, Resource.TYPE_DEVICE_CAT, "Device资源分类", null));
+        } else if (Resource.TYPE_DEVICE_CAT.equals(resourceType)) {
+            items.add(new CodeNameItem(null, null, Resource.TYPE_DEVICE_CAT, "Device资源分类", null));
+            items.add(new CodeNameItem(null, null, Resource.TYPE_DEVICE_VIEW, "Device视图", null));
+        } else if (Resource.TYPE_DEVICE_VIEW.equals(resourceType)) {
+            items.add(new CodeNameItem(null, null, Resource.TYPE_DEVICE_VIEW, "Device视图", null));
         }
         return items;
 	}
 	
 	@GetMapping("/web/resources")
 	@ApiOperation(value = "web菜单", notes = "获取用户对应权限的web菜单")
-	public List<TmSysResource>  getWebResourceList() {
+	public List<Resource>  getWebResourceList() {
 		String username=LoginUserUtil.getLoginUser();
-		List<TmSysResource> resourceList = tmSysResourceBo.findResourceList(username, CodeTypeConstants.TYPE_WEB_URL);
+		List<TmSysResource> resourceList = tmSysResourceBo.findResourceList(username, Resource.TYPE_WEB_URL);
 		if(CollectionUtils.isEmpty(resourceList))
 			return null;
 		return tmSysResourceBo.findAllResources(resourceList);
@@ -114,9 +114,11 @@ public class TmSysResourceApiController extends BaseController<TmSysResource, In
 	
 	@GetMapping("/device/resources")
 	@ApiOperation(value = "pad菜单", notes = "获取用户对应权限的pad菜单")
-	public List<TmSysResource>  getDeviceResourceList() {
+	public List<Resource>  getDeviceResourceList() {
 		String username=LoginUserUtil.getLoginUser();
-		List<TmSysResource> resourceList = tmSysResourceBo.findResourceList(username, CodeTypeConstants.TYPE_DEVICE);
+		List<TmSysResource> resourceList = tmSysResourceBo.findResourceList(username, Resource.TYPE_DEVICE);
+		if(CollectionUtils.isEmpty(resourceList))
+			return null;
 		return tmSysResourceBo.findAllResources(resourceList);
 	}
 }
