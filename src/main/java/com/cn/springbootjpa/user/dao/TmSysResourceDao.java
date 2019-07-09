@@ -13,45 +13,40 @@ import com.cn.springbootjpa.user.entity.TmSysResource;
 public interface TmSysResourceDao extends BaseDao<TmSysResource, Integer> {
 	/**
 	 * 根据用户类型获取不同设备下的菜单集合
-	 * 菜单分为0 1 2 3 四级菜单 此为知道用户名和设备类型查询设备菜单
 	 * @param userName
 	 * @param resType
 	 * @return
 	 */
-	@Query(value="select ttt.* from (SELECT	* FROM tm_sys_resource t WHERE t.tm_sys_resource_id IN ( " + 
-			"SELECT DISTINCT t2.parent_res_id FROM tm_sys_resource t2 WHERE t2.tm_sys_resource_id IN ( " + 
-			"SELECT t1.parent_res_id FROM tm_sys_resource t1 WHERE t1.tm_sys_resource_id IN ( " + 
-			"SELECT DISTINCT re.parent_res_id FROM tr_sys_role_resource rr " + 
+	@Query(value="SELECT re.* FROM tr_sys_role_resource rr " + 
 			"	LEFT JOIN tm_sys_resource re ON rr.tm_sys_resource_id = re.tm_sys_resource_id " + 
-			"	LEFT JOIN tm_sys_role ro ON rr.tm_sys_role_id = ro.tm_sys_role_id " + 
+			"	LEFT JOIN tm_sys_role ro ON ro.tm_sys_role_id = rr.tm_sys_role_id " + 
 			"	LEFT JOIN tr_sys_user_role ur ON ur.tm_sys_role_id = ro.tm_sys_role_id " + 
-			"	LEFT JOIN tm_sys_user us ON us.tm_sys_user_id = ur.tm_sys_user_id  " + 
-			"WHERE us.user_name = :userName AND re.res_type = :resType ) ) )  " + 
-			"	UNION ALL " + 
-			"SELECT t.* FROM tm_sys_resource t WHERE t.tm_sys_resource_id IN ( " + 
-			"SELECT t1.parent_res_id FROM tm_sys_resource t1 WHERE t1.tm_sys_resource_id IN ( " + 
-			"SELECT DISTINCT re.parent_res_id FROM tr_sys_role_resource rr " + 
-			"	LEFT JOIN tm_sys_resource re ON rr.tm_sys_resource_id = re.tm_sys_resource_id " + 
-			"	LEFT JOIN tm_sys_role ro ON rr.tm_sys_role_id = ro.tm_sys_role_id " + 
-			"	LEFT JOIN tr_sys_user_role ur ON ur.tm_sys_role_id = ro.tm_sys_role_id " + 
-			"	LEFT JOIN tm_sys_user us ON us.tm_sys_user_id = ur.tm_sys_user_id  " + 
-			"WHERE us.user_name = :userName AND re.res_type = :resType ) )  " + 
-			"	UNION ALL " + 
-			"SELECT * FROM tm_sys_resource t  " + 
-			"WHERE t.tm_sys_resource_id IN ( " + 
-			"SELECT DISTINCT re.parent_res_id FROM tr_sys_role_resource rr " + 
-			"	LEFT JOIN tm_sys_resource re ON rr.tm_sys_resource_id = re.tm_sys_resource_id " + 
-			"	LEFT JOIN tm_sys_role ro ON rr.tm_sys_role_id = ro.tm_sys_role_id " + 
-			"	LEFT JOIN tr_sys_user_role ur ON ur.tm_sys_role_id = ro.tm_sys_role_id " + 
-			"	LEFT JOIN tm_sys_user us ON us.tm_sys_user_id = ur.tm_sys_user_id  " + 
-			"WHERE us.user_name = :userName AND re.res_type = :resType )  " + 
-			"	union all " + 
-			"	SELECT DISTINCT re.* FROM tr_sys_role_resource rr " + 
-			"	LEFT JOIN tm_sys_resource re ON rr.tm_sys_resource_id = re.tm_sys_resource_id " + 
-			"	LEFT JOIN tm_sys_role ro ON rr.tm_sys_role_id = ro.tm_sys_role_id " + 
-			"	LEFT JOIN tr_sys_user_role ur ON ur.tm_sys_role_id = ro.tm_sys_role_id " + 
-			"	LEFT JOIN tm_sys_user us ON us.tm_sys_user_id = ur.tm_sys_user_id  " + 
-			"WHERE us.user_name = :userName AND re.res_type = :resType ) ttt " + 
-			" ORDER BY ttt.res_level ASC,ttt.parent_res_id asc ",nativeQuery=true)
+			"	LEFT JOIN tm_sys_user ue ON ue.tm_sys_user_id = ur.tm_sys_user_id  " + 
+			"WHERE ue.user_name = :userName AND re.res_type = :resType ",nativeQuery=true)
 	public List<TmSysResource> findResourceList(@Param("userName")String userName,@Param("resType")String resType);
+	
+	/**
+	 * 获取所有的菜单总类集合 
+	 * 按照等级和上级信息排序
+	 * @param resources
+	 * @return
+	 */
+	@Query(value="select * from ( " + 
+			"select * from tm_sys_resource tttt where tttt.tm_sys_resource_id in( " + 
+			"select DISTINCT ttt.parent_res_id from tm_sys_resource ttt where ttt.tm_sys_resource_id in ( " + 
+			"select DISTINCT t.parent_res_id from tm_sys_resource t where t.tm_sys_resource_id in ( " + 
+			"select DISTINCT tt.parent_res_id from tm_sys_resource tt where tt.tm_sys_resource_id in (:resources) " + 
+			"))) " + 
+			"UNION all " + 
+			"select * from tm_sys_resource ttt where ttt.tm_sys_resource_id in ( " + 
+			"select DISTINCT t.parent_res_id from tm_sys_resource t where t.tm_sys_resource_id in ( " + 
+			"select DISTINCT  tt.parent_res_id from tm_sys_resource tt where tt.tm_sys_resource_id in (:resources) " + 
+			")) " + 
+			"UNION all " + 
+			"select * from tm_sys_resource t where t.tm_sys_resource_id in ( " + 
+			"select DISTINCT tt.parent_res_id from tm_sys_resource tt where tt.tm_sys_resource_id in (:resources) " + 
+			") UNION all " + 
+			"select tt.* from tm_sys_resource tt where tt.tm_sys_resource_id in (:resources) " + 
+			") t1 order by t1.res_level asc,t1.parent_res_id asc",nativeQuery=true)
+	public List<TmSysResource> findAllResources(@Param("resources")List<Integer> resources);
 }

@@ -106,7 +106,7 @@ public class TmSysResourceApiController extends BaseController<TmSysResource, In
 	public List<TmSysResource>  getWebResourceList() {
 		String username=LoginUserUtil.getLoginUser();
 		List<TmSysResource> resourceList = tmSysResourceBo.findResourceList(username, CodeTypeConstants.TYPE_WEB_URL);
-		return resourceList;
+		return tmSysResourceBo.findAllResources(resourceList);
 	}
 	
 	@GetMapping("/device/resources")
@@ -114,6 +114,6 @@ public class TmSysResourceApiController extends BaseController<TmSysResource, In
 	public List<TmSysResource>  getDeviceResourceList() {
 		String username=LoginUserUtil.getLoginUser();
 		List<TmSysResource> resourceList = tmSysResourceBo.findResourceList(username, CodeTypeConstants.TYPE_DEVICE);
-		return resourceList;
+		return tmSysResourceBo.findAllResources(resourceList);
 	}
 }

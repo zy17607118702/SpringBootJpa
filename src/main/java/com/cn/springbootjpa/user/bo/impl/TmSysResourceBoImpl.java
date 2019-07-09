@@ -4,6 +4,7 @@
 package com.cn.springbootjpa.user.bo.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,13 +32,28 @@ public class TmSysResourceBoImpl extends BaseBoImpl<TmSysResource, Integer> impl
 		return dao;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.cn.springbootjpa.user.bo.TmSysResourceBo#findResourceList(java.lang.String, java.lang.String)
+	/**
+	 * 获取所有用户不同设备下的菜单连接集合
+	 * @param userName
+	 * @param resType
+	 * @return
 	 */
 	@Override
 	public List<TmSysResource> findResourceList(String userName, String resType) {
 		// TODO Auto-generated method stub
 		return dao.findResourceList(userName, resType);
+	}
+	/**
+	 * 根据用户菜单集合获取所有的菜单信息
+	 * 包含设备信息 1 2 3 级菜单
+	 * @param resources
+	 * @return
+	 */
+	@Override
+	public List<TmSysResource> findAllResources(List<TmSysResource> resources) {
+		//遍历集合获取id组成新的集合
+		List<Integer> collect = resources.stream().map(TmSysResource::getId).collect(Collectors.toList());
+		return dao.findAllResources(collect);
 	}
 	
 }
