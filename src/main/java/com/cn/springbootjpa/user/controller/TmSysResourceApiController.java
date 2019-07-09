@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -106,6 +107,8 @@ public class TmSysResourceApiController extends BaseController<TmSysResource, In
 	public List<TmSysResource>  getWebResourceList() {
 		String username=LoginUserUtil.getLoginUser();
 		List<TmSysResource> resourceList = tmSysResourceBo.findResourceList(username, CodeTypeConstants.TYPE_WEB_URL);
+		if(CollectionUtils.isEmpty(resourceList))
+			return null;
 		return tmSysResourceBo.findAllResources(resourceList);
 	}
 	

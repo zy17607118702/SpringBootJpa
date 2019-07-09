@@ -79,7 +79,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         response.addHeader("Content-Type", "application/json");
         try {
             ServletOutputStream os = response.getOutputStream();
-            mapper.writeValue(os, new JwtToken(jwtUser.getUsername(), token));
+            mapper.writeValue(os, new JwtToken(jwtUser.getUsername(), JwtTokenUtils.TOKEN_PREFIX + token));
             os.close();
         } catch (IOException e) {
             e.printStackTrace();
