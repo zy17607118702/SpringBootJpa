@@ -57,7 +57,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				// token过滤器
 				.addFilter(new JWTAuthenticationFilter(authenticationManager()))
 				.addFilter(new JWTAuthorizationFilter(authenticationManager())).authorizeRequests()
-				.antMatchers("/**/static/**").permitAll()
 				// 放行swagger2相关资源	
 				.antMatchers("/*.html").permitAll().antMatchers("/*.js").permitAll().antMatchers("/webjars/**")
 				.permitAll().antMatchers("/swagger-resources/**").permitAll().antMatchers("/**/api-docs/**").permitAll()
