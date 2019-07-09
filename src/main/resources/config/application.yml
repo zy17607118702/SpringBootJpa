@@ -7,6 +7,9 @@ spring:
     name: SpringBootJpa
   profiles:
     active: localhost
+  resources:
+    static-locations: /resources/,classpath:/static/
+  add-mappings: true
   aop:
      proxy-target-class: false
   jackson:
