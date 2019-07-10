@@ -8,7 +8,7 @@ spring:
   profiles:
     active: localhost
   resources:
-    static-locations: /resources/,classpath:/static/
+    static-locations: classpath:/static/**
   add-mappings: true
   aop:
      proxy-target-class: false
@@ -17,7 +17,7 @@ spring:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: Asia/Shanghai
   session:
-    store-type: redis
+    store-type: none
   cache:
     type: jcache
     jcache:
@@ -53,9 +53,4 @@ spring:
               factory_class: org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory
             javax:
               cache:
-                provider: org.ehcache.jsr107.EhcacheCachingProvider  
-        
-logging:
-  file: /app/logs/${spring.application.name}.log
-  level:
-    root: INFO
+                provider: org.ehcache.jsr107.EhcacheCachingProvider        
