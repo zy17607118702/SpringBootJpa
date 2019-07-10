@@ -2,7 +2,8 @@ package com.cn.springbootjpa.config.security.filter;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -18,7 +19,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.cn.springbootjpa.config.security.model.JwtToken;
-import com.cn.springbootjpa.config.security.model.JwtUser;
 import com.cn.springbootjpa.config.security.model.LoginUser;
 import com.cn.springbootjpa.config.security.utils.JwtTokenUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -61,16 +61,11 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                             HttpServletResponse response,
                                             FilterChain chain,
                                             Authentication authResult) throws IOException, ServletException {
-        JwtUser jwtUser = (JwtUser) authResult.getPrincipal();
         boolean isRemember = rememberMe.get()!=null? rememberMe.get()== 1:false;
+        String username = authResult.getName();
+        List<String> roles = authResult.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
 
-        String role = "";
-        Collection<? extends GrantedAuthority> authorities = jwtUser.getAuthorities();
-        for (GrantedAuthority authority : authorities){
-            role = authority.getAuthority();
-        }
-
-        String token = JwtTokenUtils.createToken(jwtUser.getUsername(), role, isRemember);
+        String token = JwtTokenUtils.createToken(username, roles, isRemember);
         // 返回创建成功的token
         // 但是这里创建的token只是单纯的token
         // 按照jwt的规定，最后请求的时候应该是 `Bearer token`
@@ -79,7 +74,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         response.addHeader("Content-Type", "application/json");
         try {
             ServletOutputStream os = response.getOutputStream();
-            mapper.writeValue(os, new JwtToken(jwtUser.getUsername(), JwtTokenUtils.TOKEN_PREFIX + token));
+            mapper.writeValue(os, new JwtToken(username, JwtTokenUtils.TOKEN_PREFIX + token));
             os.close();
         } catch (IOException e) {
             e.printStackTrace();
