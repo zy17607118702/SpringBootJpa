@@ -19,7 +19,6 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.cn.springbootjpa.config.security.filter.JWTAuthenticationFilter;
 import com.cn.springbootjpa.config.security.filter.JWTAuthorizationFilter;
-import com.cn.springbootjpa.config.security.jwt.JwtAuthenticationConfig;
 import com.cn.springbootjpa.config.security.utils.SecurityCheck;
 
 /**
@@ -28,9 +27,6 @@ import com.cn.springbootjpa.config.security.utils.SecurityCheck;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-
-	@Autowired
-	private JwtAuthenticationConfig config;
 
 	@Autowired
 	@Qualifier("jpaUserDetailsService")
@@ -61,7 +57,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/*.html").anonymous().antMatchers("/*.js").permitAll().antMatchers("/webjars/**")
 				.permitAll().antMatchers("/swagger-resources/**").permitAll().antMatchers("/**/api-docs/**").permitAll()
 				// 对于登陆和密码修改两个请求以及异常请求放行
-				.antMatchers(config.getUrl()).permitAll().antMatchers("/error").permitAll()
+				.antMatchers("/api/login").permitAll().antMatchers("/error").permitAll()
 				.antMatchers("/user/updatepwdByUsername").permitAll()
 				// 其他请求都匹配权限 securityCheck.check方法
 				.antMatchers("/**").access("@securityCheck.check(authentication,request)").anyRequest().authenticated();
@@ -77,11 +73,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
 		return source;
-	}
-
-	@Bean
-	public JwtAuthenticationConfig jwtConfig() {
-		return new JwtAuthenticationConfig();
 	}
 
 	@Bean

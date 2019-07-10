@@ -54,28 +54,7 @@ spring:
             javax:
               cache:
                 provider: org.ehcache.jsr107.EhcacheCachingProvider  
-  redis:
-    host: 127.0.0.1
-    port: 6379
-    database: 0
-    timeout: 1000
-    password: Pass1234 
-    pool: 
-      max-active: 8
-      max-wait: -1
-      max-idle: 8
-      min-idle: 0
-      
-security:
-  jwt:
-    login: /api/login
-    logout: /api/logout
-    refresh: refresh
-    prefix: Bearer
-    header: Authorization
-    expiration: 86400
-    secret: changeitasyouwish
-    
+        
 logging:
   file: /app/logs/${spring.application.name}.log
   level:
