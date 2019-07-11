@@ -3,17 +3,20 @@ package com.cn.springbootjpa.mq.message;
 import java.util.Map;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
+/**
+ * 消息头格式
+ * @author zhangyang
+ *
+ */
 @Data
-@NoArgsConstructor
 public class MessageHeader {
     public final static String SYSTEM_ID = "SystemId";
     public final static String MESSAGE_ID = "msgId";
     public final static String MESSAGE_TYPE = "msgType";
     public final static String CORRELATION_ID = "CorrelationId";
-    public static final String SRC_SYSTEM = "srcSystem";
-    public static final String DES_SYSTEM = "desSystem";
+    public final static String SRC_SYSTEM = "srcSystem";
+    public final static String DES_SYSTEM = "desSystem";
     public final static String SEQUENCE_ID = "SequenceId";
     public final static String OPERATOR_ID = "OperatorId"; // optional 可选
     public final static String OPERATOR_NAME = "OperatorName"; // optional 可选
@@ -21,6 +24,7 @@ public class MessageHeader {
     public final static String MESSAGE_FORMAT = "MessageFormat";
     public final static String REPLY_TO = "ReplyTo";
 
+    //文件格式
     public final static String MESSAGE_FORMAT_XML = "xml";
     public final static String MESSAGE_FORMAT_JSON = "json";
     public final static String MESSAGE_FORMAT_CSV = "csv";
@@ -57,6 +61,10 @@ public class MessageHeader {
     private String messageId;
     private String correlationId;
 
+	public MessageHeader() {
+		super();
+	}
+    
     public MessageHeader(String msgType) {
         this.messageType = msgType;
     }
