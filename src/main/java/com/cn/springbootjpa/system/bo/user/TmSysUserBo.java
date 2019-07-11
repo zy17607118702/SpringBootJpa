@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.cn.springbootjpa.system.bo;
+package com.cn.springbootjpa.system.bo.user;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import org.springframework.cache.annotation.Cacheable;
 
 import com.cn.springbootjpa.base.bo.BaseBo;
 import com.cn.springbootjpa.base.common.query.ImportResult;
-import com.cn.springbootjpa.system.entity.TmSysUser;
+import com.cn.springbootjpa.system.entity.user.TmSysUser;
 import com.cn.springbootjpa.system.importvo.TmSysUserVo;
 
 /**

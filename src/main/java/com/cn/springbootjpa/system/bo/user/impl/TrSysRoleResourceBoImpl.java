@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.cn.springbootjpa.system.bo.impl;
+package com.cn.springbootjpa.system.bo.user.impl;
 
 import java.util.List;
 import java.util.Set;
@@ -12,9 +12,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.cn.springbootjpa.base.bo.BaseBoImpl;
 import com.cn.springbootjpa.base.dao.BaseDao;
-import com.cn.springbootjpa.system.bo.TrSysRoleResourceBo;
-import com.cn.springbootjpa.system.dao.TrSysRoleResourceDao;
-import com.cn.springbootjpa.system.entity.TrSysRoleResource;
+import com.cn.springbootjpa.system.bo.user.TrSysRoleResourceBo;
+import com.cn.springbootjpa.system.dao.user.TrSysRoleResourceDao;
+import com.cn.springbootjpa.system.entity.user.TrSysRoleResource;
 
 /**
  * @author zhangyang

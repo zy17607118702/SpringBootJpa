@@ -1,4 +1,4 @@
-package com.cn.springbootjpa.system.dao;
+package com.cn.springbootjpa.system.dao.user;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.cn.springbootjpa.base.dao.BaseDao;
-import com.cn.springbootjpa.system.entity.TmSysUser;
+import com.cn.springbootjpa.system.entity.user.TmSysUser;
 
 @Repository
 public interface TmSysUserDao extends BaseDao<TmSysUser, Integer> {

@@ -1,4 +1,4 @@
-package com.cn.springbootjpa.system.entity;
+package com.cn.springbootjpa.system.entity.user;
 
 import java.util.Set;
 

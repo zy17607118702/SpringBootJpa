@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.cn.springbootjpa.system.bo;
+package com.cn.springbootjpa.system.bo.user;
 
 import java.util.List;
 import java.util.Set;
@@ -9,7 +9,7 @@ import java.util.Set;
 import org.springframework.cache.annotation.CacheConfig;
 
 import com.cn.springbootjpa.base.bo.BaseBo;
-import com.cn.springbootjpa.system.entity.TrSysRoleResource;
+import com.cn.springbootjpa.system.entity.user.TrSysRoleResource;
 
 /**
  * spel表达式只能写在接口上 前端请求的是接口不是实现类

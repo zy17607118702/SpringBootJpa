@@ -1,4 +1,4 @@
-package com.cn.springbootjpa.master.entity;
+package com.cn.springbootjpa.mainData.entity;
 
 import java.util.Set;
 

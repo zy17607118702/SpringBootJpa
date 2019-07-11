@@ -1,4 +1,4 @@
-package com.cn.springbootjpa.system.entity;
+package com.cn.springbootjpa.system.entity.user;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

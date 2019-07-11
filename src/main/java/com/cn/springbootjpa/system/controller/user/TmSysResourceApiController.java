@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.cn.springbootjpa.system.controller;
+package com.cn.springbootjpa.system.controller.user;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cn.springbootjpa.base.bo.BaseBo;
 import com.cn.springbootjpa.base.common.code.CodeNameItem;
 import com.cn.springbootjpa.base.controller.BaseController;
-import com.cn.springbootjpa.system.bo.TmSysResourceBo;
-import com.cn.springbootjpa.system.entity.TmSysResource;
+import com.cn.springbootjpa.system.bo.user.TmSysResourceBo;
+import com.cn.springbootjpa.system.entity.user.TmSysResource;
 import com.cn.springbootjpa.system.vo.Resource;
 import com.cn.springbootjpa.util.LoginUserUtil;
 import com.cn.springbootjpa.util.StringUtil;

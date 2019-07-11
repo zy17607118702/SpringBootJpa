@@ -1,14 +1,14 @@
 /**
  * 
  */
-package com.cn.springbootjpa.system.bo;
+package com.cn.springbootjpa.system.bo.user;
 
 import java.util.List;
 
 import org.springframework.cache.annotation.CacheConfig;
 
 import com.cn.springbootjpa.base.bo.BaseBo;
-import com.cn.springbootjpa.system.entity.TmSysResource;
+import com.cn.springbootjpa.system.entity.user.TmSysResource;
 import com.cn.springbootjpa.system.vo.Resource;
 
 /**

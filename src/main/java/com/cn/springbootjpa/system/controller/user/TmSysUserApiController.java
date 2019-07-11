@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.cn.springbootjpa.system.controller;
+package com.cn.springbootjpa.system.controller.user;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -32,8 +32,8 @@ import com.cn.springbootjpa.base.common.query.QueryParam;
 import com.cn.springbootjpa.base.controller.BaseController;
 import com.cn.springbootjpa.base.exception.AppException;
 import com.cn.springbootjpa.base.exception.ApplicationException;
-import com.cn.springbootjpa.system.bo.TmSysUserBo;
-import com.cn.springbootjpa.system.entity.TmSysUser;
+import com.cn.springbootjpa.system.bo.user.TmSysUserBo;
+import com.cn.springbootjpa.system.entity.user.TmSysUser;
 import com.cn.springbootjpa.system.importvo.TmSysUserVo;
 import com.cn.springbootjpa.util.DateUtils;
 import com.cn.springbootjpa.util.LoginUserUtil;

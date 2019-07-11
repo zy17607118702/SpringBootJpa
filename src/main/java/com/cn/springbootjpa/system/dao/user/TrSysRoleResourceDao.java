@@ -1,4 +1,4 @@
-package com.cn.springbootjpa.system.dao;
+package com.cn.springbootjpa.system.dao.user;
 
 import java.util.List;
 import java.util.Set;
@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.cn.springbootjpa.base.dao.BaseDao;
-import com.cn.springbootjpa.system.entity.TrSysRoleResource;
+import com.cn.springbootjpa.system.entity.user.TrSysRoleResource;
 
 @Repository
 public interface TrSysRoleResourceDao extends BaseDao<TrSysRoleResource, Integer> {

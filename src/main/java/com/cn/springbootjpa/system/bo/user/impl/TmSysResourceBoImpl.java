@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.cn.springbootjpa.system.bo.impl;
+package com.cn.springbootjpa.system.bo.user.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,9 +15,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.cn.springbootjpa.base.bo.BaseBoImpl;
 import com.cn.springbootjpa.base.dao.BaseDao;
-import com.cn.springbootjpa.system.bo.TmSysResourceBo;
-import com.cn.springbootjpa.system.dao.TmSysResourceDao;
-import com.cn.springbootjpa.system.entity.TmSysResource;
+import com.cn.springbootjpa.system.bo.user.TmSysResourceBo;
+import com.cn.springbootjpa.system.dao.user.TmSysResourceDao;
+import com.cn.springbootjpa.system.entity.user.TmSysResource;
 import com.cn.springbootjpa.system.vo.Resource;
 
 /**

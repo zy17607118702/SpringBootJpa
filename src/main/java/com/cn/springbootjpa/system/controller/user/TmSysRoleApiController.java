@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.cn.springbootjpa.system.controller;
+package com.cn.springbootjpa.system.controller.user;
 
 import java.util.HashMap;
 import java.util.List;
@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cn.springbootjpa.base.bo.BaseBo;
 import com.cn.springbootjpa.base.controller.BaseController;
-import com.cn.springbootjpa.system.bo.TmSysRoleBo;
-import com.cn.springbootjpa.system.bo.TmSysUserBo;
-import com.cn.springbootjpa.system.entity.TmSysRole;
-import com.cn.springbootjpa.system.entity.TmSysUser;
+import com.cn.springbootjpa.system.bo.user.TmSysRoleBo;
+import com.cn.springbootjpa.system.bo.user.TmSysUserBo;
+import com.cn.springbootjpa.system.entity.user.TmSysRole;
+import com.cn.springbootjpa.system.entity.user.TmSysUser;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
