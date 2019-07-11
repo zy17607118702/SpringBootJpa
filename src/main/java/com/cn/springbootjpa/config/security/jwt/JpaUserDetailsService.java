@@ -10,9 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cn.springbootjpa.config.security.model.JwtUser;
-import com.cn.springbootjpa.user.bo.TmSysUserBo;
-import com.cn.springbootjpa.user.bo.TrSysUserRoleBo;
-import com.cn.springbootjpa.user.entity.TmSysUser;
+import com.cn.springbootjpa.system.bo.user.TmSysUserBo;
+import com.cn.springbootjpa.system.bo.user.TrSysUserRoleBo;
+import com.cn.springbootjpa.system.entity.user.TmSysUser;
 
 @Service
 @Transactional(readOnly = true)

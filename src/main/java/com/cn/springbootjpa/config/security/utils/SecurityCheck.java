@@ -13,7 +13,7 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.cn.springbootjpa.base.common.code.CodeTypeConstants;
-import com.cn.springbootjpa.user.bo.TrSysRoleResourceBo;
+import com.cn.springbootjpa.system.bo.user.TrSysRoleResourceBo;
 
 import lombok.extern.slf4j.Slf4j;
 

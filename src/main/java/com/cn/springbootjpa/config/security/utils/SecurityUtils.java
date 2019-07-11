@@ -23,8 +23,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import com.cn.springbootjpa.user.bo.TmSysUserBo;
-import com.cn.springbootjpa.user.entity.TmSysUser;
+import com.cn.springbootjpa.system.bo.user.TmSysUserBo;
+import com.cn.springbootjpa.system.entity.user.TmSysUser;
 
 /**
  * 

@@ -7,7 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.cn.springbootjpa.user.entity.TmSysUser;
+import com.cn.springbootjpa.system.entity.user.TmSysUser;
 
 /**
  * Created by echisan on 2018/6/23

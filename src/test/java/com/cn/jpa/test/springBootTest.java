@@ -8,8 +8,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.cn.springbootjpa.SpringbootApplication;
-import com.cn.springbootjpa.user.bo.TmSysUserBo;
-import com.cn.springbootjpa.user.entity.TmSysUser;
+import com.cn.springbootjpa.system.bo.user.TmSysUserBo;
+import com.cn.springbootjpa.system.entity.user.TmSysUser;
 
 @RunWith(SpringRunner.class)   
 @SpringBootTest(classes={SpringbootApplication.class})
