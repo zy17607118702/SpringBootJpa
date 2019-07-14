@@ -45,8 +45,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		// @formatter:off
-		http.cors().and().headers().frameOptions().sameOrigin().and().csrf().disable().logout().disable().formLogin()
-				.disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().anonymous()
+		http.cors().and().headers().frameOptions().sameOrigin().and().csrf().disable().logout().disable()
+				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().anonymous()
 				.and().exceptionHandling().authenticationEntryPoint((req, rsp, e) -> {
 					rsp.sendError(HttpServletResponse.SC_UNAUTHORIZED, e.getLocalizedMessage());
 				}).and()

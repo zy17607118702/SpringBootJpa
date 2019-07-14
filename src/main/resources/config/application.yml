@@ -8,7 +8,8 @@ spring:
   profiles:
     active: localhost
   resources:
-    static-locations: classpath:/static/**
+    add-mappings: true
+    static-locations: /resources/,classpath:/static/
   add-mappings: true
   aop:
      proxy-target-class: false
@@ -53,4 +54,6 @@ spring:
               factory_class: org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory
             javax:
               cache:
-                provider: org.ehcache.jsr107.EhcacheCachingProvider        
+                provider: org.ehcache.jsr107.EhcacheCachingProvider
+            ehcache:
+              missing_cache_strategy: create

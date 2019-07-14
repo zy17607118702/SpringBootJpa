@@ -27,11 +27,11 @@ import lombok.EqualsAndHashCode;
 @Entity
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@Table(name = "TI_IFS_CONFIG", uniqueConstraints = @UniqueConstraint(columnNames = "INTERFACE_ID"))
-@org.hibernate.annotations.Table(appliesTo = "TI_IFS_CONFIG", comment = "接口配置信息表")
+@Table(name = "ti_ifs_config", uniqueConstraints = @UniqueConstraint(columnNames = "INTERFACE_ID"))
+@org.hibernate.annotations.Table(appliesTo = "ti_ifs_config", comment = "接口配置信息表")
 @EqualsAndHashCode(callSuper = true)
 public class TiIfsConfig extends BaseEntity {
-
+	
 	/**
 	 * 
 	 */
