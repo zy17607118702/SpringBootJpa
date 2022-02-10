@@ -24,7 +24,7 @@
 		<!-- lomlok -->
 		<lombak.version>1.18.2</lombak.version>
 		<!--hibernate -->
-		<hibernate.version>5.3.7.Final</hibernate.version>
+		<hibernate.version>5.4.24.Final</hibernate.version>
 		<!-- ehcache -->
 		<ehcache3.version>3.5.2</ehcache3.version>
 		<!-- mysql -->
